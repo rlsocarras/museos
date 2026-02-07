@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_informe_estadistico">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2>Informe Estadístico</h2>
+                            <h3 t-field="object.name"/>
+                            <hr/>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <strong>Museo:</strong>
+                            <span t-field="object.museo_id.name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Período:</strong>
+                            <span t-field="object.periodo"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <strong>Fecha Inicio:</strong>
+                            <span t-field="object.fecha_inicio"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Fecha Fin:</strong>
+                            <span t-field="object.fecha_fin"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h4>Estadísticas Principales</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col-3 text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 t-field="object.total_actividades"/>
+                                    <small>Total Actividades</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 t-field="object.total_asistentes"/>
+                                    <small>Total Asistentes</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 t-field="object.promedio_asistencia"/>
+                                    <small>Promedio por Actividad</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 t-field="object.ingresos_totales"/>
+                                    <small>Ingresos Totales</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h4>Distribución por Tipo de Actividad</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de Actividad</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="json.loads(object.actividades_por_tipo)" t-as="item">
+                                        <tr>
+                                            <td t-esc="item[0]"/>
+                                            <td t-esc="item[1]"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h4>Observaciones</h4>
+                            <p t-field="object.observaciones"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12 text-right">
+                            <small>Generado el: <span t-field="object.fecha_generacion"/></small>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

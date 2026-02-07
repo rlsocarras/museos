@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario de Actividad -->
+    <record id="view_museo_actividad_form" model="ir.ui.view">
+        <field name="name">museo.actividad.form</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <form string="Actividad del Museo">
+                <header>
+                    <!-- <button name="action_confirmar" type="object" string="Confirmar" states="planificada" class="btn-primary"/>
+                    <button name="action_cancelar" type="object" string="Cancelar" states="planificada,confirmada" class="btn-secondary"/>
+                    <button name="action_realizar" type="object" string="Marcar como Realizada" states="en_curso" class="btn-primary"/> -->
+                    <field name="estado" widget="statusbar" statusbar_visible="planificada,confirmada,en_curso,realizada,cancelada,pospuesta"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre de la Actividad"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="museo_id"/>
+                            <field name="tipo_actividad"/>
+                            <field name="fecha_inicio" widget="datetime"/>
+                            <field name="fecha_fin" widget="datetime"/>
+                            <field name="duracion_horas" readonly= "1"/>
+                        </group>
+                        <group>
+                            <field name="estado"/>
+                            <field name="costo"/>
+                            <field name="capacidad_maxima"/>
+                            <field name="asistentes_confirmados" readonly= "1"/>
+                            <field name="sala"/>
+                            <field name="publico_objetivo"/>
+                        </group>
+                    </group>
+                    <field name="descripcion" widget="html" nolabel="1"/>
+                    <group>
+                        <group>
+                            <field name="trabajadores_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Registro de Asistencia">
+                            <field name="registro_asistencia_ids">
+                                <list string="Registros de Asistencia" editable="bottom">
+                                    <field name="fecha"/>
+                                    <field name="asistentes"/>
+                                    <field name="grupo_edad"/>
+                                    <field name="origen"/>
+                                    <field name="satisfaccion"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="fecha"/>
+                                        <field name="asistentes"/>
+                                        <field name="grupo_edad"/>
+                                        <field name="origen"/>
+                                        <field name="satisfaccion"/>
+                                        <field name="comentarios" widget="textarea"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Lista de Actividades -->
+    <record id="view_museo_actividad_tree" model="ir.ui.view">
+        <field name="name">museo.actividad.tree</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <list string="Actividades" decoration-danger="estado == 'cancelada'" decoration-warning="estado == 'pospuesta'" decoration-success="estado == 'realizada'">
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="tipo_actividad"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="estado"/>
+                <field name="asistentes_confirmados"/>
+                <field name="capacidad_maxima"/>
+                <field name="costo"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Búsqueda de Actividades -->
+    <record id="view_museo_actividad_search" model="ir.ui.view">
+        <field name="name">museo.actividad.search</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Actividades">
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="tipo_actividad"/>
+                <field name="estado"/>
+                <separator/>
+                <filter string="Planificadas" name="planificadas" domain="[('estado', '=', 'planificada')]"/>
+                <filter string="Confirmadas" name="confirmadas" domain="[('estado', '=', 'confirmada')]"/>
+                <filter string="Realizadas" name="realizadas" domain="[('estado', '=', 'realizada')]"/>
+                <!-- <filter string="Esta semana" name="esta_semana" domain="[('fecha_inicio', '&gt;=', date.today()), ('fecha_inicio', '&lt;=', date.today() + 7)]"/>
+                <filter string="Próximo mes" name="proximo_mes" domain="[('fecha_inicio', '&gt;=', date.today()), ('fecha_inicio', '&lt;=', date.today() + 30)]"/> -->
+                <group expand="0" string="Agrupar por">
+                    <filter string="Museo" name="grupo_museo" context="{'group_by': 'museo_id'}"/>
+                    <filter string="Tipo" name="grupo_tipo" context="{'group_by': 'tipo_actividad'}"/>
+                    <filter string="Estado" name="grupo_estado" context="{'group_by': 'estado'}"/>
+                    <!-- <filter string="Mes" name="grupo_mes" context="{'group_by': 'fecha_inicio:month'}"/> -->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Actividades -->
+    <record id="action_museo_actividad" model="ir.actions.act_window">
+        <field name="name">Actividades del Museo</field>
+        <field name="res_model">museo.actividad</field>
+        <field name="view_mode">list,calendar,form,graph,pivot</field>
+        <field name="context">{'search_default_esta_semana': 1}</field>
+    </record>
+
+    <!-- Vista de Calendario -->
+    <record id="view_museo_actividad_calendar" model="ir.ui.view">
+        <field name="name">museo.actividad.calendar</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendario de Actividades"
+                      date_start="fecha_inicio"
+                      date_stop="fecha_fin"
+                      color="tipo_actividad"
+                      mode="month">
+                <field name="name"/>
+                <field name="tipo_actividad"/>
+                <field name="estado"/>
+                <field name="museo_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Vista de Gráfico -->
+    <record id="view_museo_actividad_graph" model="ir.ui.view">
+        <field name="name">museo.actividad.graph</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <graph string="Estadísticas de Actividades" type="bar">
+                <field name="tipo_actividad" type="row"/>
+                <field name="asistentes_confirmados" type="measure"/>
+                <field name="costo" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Vista de Pivote -->
+    <record id="view_museo_actividad_pivot" model="ir.ui.view">
+        <field name="name">museo.actividad.pivot</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <pivot string="Análisis de Actividades">
+                <field name="tipo_actividad" type="col"/>
+                <field name="publico_objetivo" type="row"/>
+                <field name="asistentes_confirmados" type="measure"/>
+                <field name="costo" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+</odoo>

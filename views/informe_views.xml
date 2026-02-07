@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario de Informe Estadístico -->
+    <record id="view_museo_informe_form" model="ir.ui.view">
+        <field name="name">museo.informe.form</field>
+        <field name="model">museo.informe</field>
+        <field name="arch" type="xml">
+            <form string="Informe Estadístico">
+                <header>
+                    <button name="action_generar_pdf" type="object" string="Generar PDF" class="btn-primary"/>
+                    <button name="action_validar_informe" type="object" string="Validar" class="btn-secondary"/>
+                    <button name="action_publicar_informe" type="object" string="Publicar" class="btn-primary"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,generado,validado,publicado"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="museo_id"/>
+                            <field name="periodo"/>
+                            <field name="fecha_inicio" widget="date"/>
+                            <field name="fecha_fin" widget="date"/>
+                            <field name="fecha_generacion" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="estado"/>
+                            <field name="archivo_pdf" filename="archivo_pdf_filename"/>
+                        </group>
+                    </group>
+                    <separator string="Estadísticas Principales"/>
+                    <group>
+                        <group>
+                            <field name="total_actividades" widget="integer" readonly="1"/>
+                            <field name="total_asistentes" widget="integer" readonly="1"/>
+                            <field name="promedio_asistencia" widget="float" readonly="1"/>
+                            <field name="ingresos_totales" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Distribución por Tipo">
+                            <field name="actividades_por_tipo" widget="json" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Métricas Específicas">
+                            <field name="metricas_especificas" widget="json" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Observaciones">
+                            <field name="observaciones" widget="textarea" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Lista de Informes -->
+    <record id="view_museo_informe_tree" model="ir.ui.view">
+        <field name="name">museo.informe.tree</field>
+        <field name="model">museo.informe</field>
+        <field name="arch" type="xml">
+            <list string="Informes Estadísticos">
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="periodo"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="estado"/>
+                <field name="total_actividades"/>
+                <field name="total_asistentes"/>
+                <field name="fecha_generacion"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Búsqueda de Informes -->
+    <record id="view_museo_informe_search" model="ir.ui.view">
+        <field name="name">museo.informe.search</field>
+        <field name="model">museo.informe</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Informes">
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="periodo"/>
+                <field name="estado"/>
+                <separator/>
+                <filter string="Mensuales" name="mensual" domain="[('periodo', '=', 'mensual')]"/>
+                <filter string="Trimestrales" name="trimestral" domain="[('periodo', '=', 'trimestral')]"/>
+                <filter string="Anuales" name="anual" domain="[('periodo', '=', 'anual')]"/>
+                <filter string="Este año" name="este_anio" domain="[('fecha_inicio', '&gt;=', context_today().replace(month=1, day=1))]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Museo" name="grupo_museo" context="{'group_by': 'museo_id'}"/>
+                    <filter string="Período" name="grupo_periodo" context="{'group_by': 'periodo'}"/>
+                    <filter string="Estado" name="grupo_estado" context="{'group_by': 'estado'}"/>
+                    <filter string="Año" name="grupo_anio" context="{'group_by': 'fecha_inicio:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Informes -->
+    <record id="action_museo_informe" model="ir.actions.act_window">
+        <field name="name">Informes Estadísticos</field>
+        <field name="res_model">museo.informe</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay informes estadísticos.
+            </p>
+            <p>
+                Genere informes estadísticos mensuales, trimestrales o anuales para analizar el desempeño del museo.
+            </p>
+        </field>
+    </record>
+
+    <!-- Vista de Gráfico para Informes -->
+    <record id="view_museo_informe_graph" model="ir.ui.view">
+        <field name="name">museo.informe.graph</field>
+        <field name="model">museo.informe</field>
+        <field name="arch" type="xml">
+            <graph string="Evolución de Asistencia">
+                <field name="fecha_inicio" interval="month" type="row"/>
+                <field name="museo_id" type="col"/>
+                <field name="total_asistentes" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Vista de Pivote para Informes -->
+    <record id="view_museo_informe_pivot" model="ir.ui.view">
+        <field name="name">museo.informe.pivot</field>
+        <field name="model">museo.informe</field>
+        <field name="arch" type="xml">
+            <pivot string="Análisis Comparativo">
+                <field name="periodo" type="col"/>
+                <field name="museo_id" type="row"/>
+                <field name="total_actividades" type="measure"/>
+                <field name="total_asistentes" type="measure"/>
+                <field name="ingresos_totales" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+</odoo>

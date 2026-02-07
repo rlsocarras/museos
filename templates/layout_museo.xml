@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="layout_museo" name="Museo Layout">
+            <t t-call="website.layout">
+                <t t-set="hide_header_footer" t-value="True"/>
+                
+                <!-- Ocultar elementos de Odoo -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Ocultar header
+                        var headers = document.querySelectorAll('#top, .o_main_navbar, .navbar');
+                        headers.forEach(function(header) {
+                            if (header) header.style.display = 'none';
+                        });
+                        
+                        // Ocultar footer
+                        var footers = document.querySelectorAll('.o_footer, footer');
+                        footers.forEach(function(footer) {
+                            if (footer) footer.style.display = 'none';
+                        });
+                    });
+                </script>
+                
+                <!-- Contenedor principal -->
+                <div id="museo-container">
+                    <!-- Header personalizado -->
+                    <header class="museo-custom-header">
+                        <div class="container">
+                            <a href="/" class="btn btn-outline-light btn-sm">
+                                <i class="fa fa-arrow-left mr-2"></i>
+                                Volver al inicio
+                            </a>
+                            <h1 class="text-center">
+                                <t t-esc="museo and museo.name or 'Museo'"/>
+                            </h1>
+                        </div>
+                    </header>
+                    
+                    <!-- Contenido -->
+                    <main>
+                        <t t-call-content="content"/>
+                    </main>
+                    
+                    <!-- Footer personalizado -->
+                    <footer class="museo-custom-footer">
+                        <div class="container text-center py-3">
+                            <small>
+                                Sistema de Gestión de Museos
+                            </small>
+                        </div>
+                    </footer>
+                </div>
+                
+                <!-- CSS para el layout -->
+                <style>
+                    .museo-custom-header {
+                        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+                        color: white;
+                        padding: 1rem 0;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    }
+                    
+                    .museo-custom-footer {
+                        background: #343a40;
+                        color: white;
+                        padding: 1rem 0;
+                        margin-top: auto;
+                    }
+                    
+                    #museo-container {
+                        display: flex;
+                        flex-direction: column;
+                        min-height: 100vh;
+                    }
+                    
+                    main {
+                        flex: 1;
+                    }
+                </style>
+            </t>
+        </template>
+    </data>
+</odoo>

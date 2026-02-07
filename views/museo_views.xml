@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario de Museo -->
+    <record id="view_museo_museo_form" model="ir.ui.view">
+        <field name="name">museo.museo.form</field>
+        <field name="model">museo.museo</field>
+        <field name="arch" type="xml">
+            <form string="Museo">
+                <header>
+                    <button name="action_ver_pagina_web" type="object" string="Ver Página Web" 
+                class="btn-success" groups="base.group_user" icon="fa-globe"/>
+                    <field name="active" widget="boolean_toggle" class="ml-4"/>
+                    <button name="action_view_objetos" type="object" string="Objetos" 
+                class="btn-primary" icon="fa-book"/>
+                    <button name="action_view_actividades" type="object" string="Actividades" 
+                class="btn-secondary" icon="fa-calendar"/>
+                    <button name="action_view_convenios" type="object" string="Convenios" 
+                class="btn-secondary" icon="fa-handshake-o"/>
+                    <button name="action_view_informes" type="object" string="Informes" 
+                class="btn-secondary" icon="fa-chart-bar"/>
+                    <button name="action_view_galeria" type="object" string="Galería" 
+                class="btn-secondary" icon="fa-images"/>
+                </header>
+                <sheet>
+                    <!-- Botones estadísticos -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_objetos" type="object" class="oe_stat_button" icon="fa-book">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Objetos</span>
+                                <span class="o_stat_value">
+                                    <field name="total_objetos" widget="statinfo"/>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_view_actividades" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Actividades</span>
+                                <span class="o_stat_value">
+                                    <field name="total_actividades" widget="statinfo"/>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_view_convenios" type="object" class="oe_stat_button" icon="fa-handshake-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Convenios</span>
+                                <span class="o_stat_value">
+                                    <field name="total_convenios" widget="statinfo"/>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_view_informes" type="object" class="oe_stat_button" icon="fa-chart-bar">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Informes</span>
+                                <span class="o_stat_value">
+                                    <field name="informes_publicados" widget="statinfo"/>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_view_galeria" type="object" class="oe_stat_button" icon="fa-images">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Fotos</span>
+                                <span class="o_stat_value">
+                                    <field name="galeria_ids" widget="statinfo" options="{'type': 'integer'}"/>
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <!-- Título principal -->
+                    <div class="oe_title">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <field name="imagen_principal" widget="image" 
+                           class="oe_avatar" />
+                            </div>
+                            <div class="col-lg-9">
+                                <h1>
+                                    <field name="name" placeholder="Nombre del Museo"/>
+                                </h1>
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <label for="fecha_creacion"/>
+                                        <field name="fecha_creacion" widget="date" class="o_field_widget"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="company_id"/>
+                                        <field name="company_id" widget="res_company"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Información de contacto -->
+                    <group string="Datos de Contacto">
+                        <field name="direccion" widget="textarea" placeholder="Dirección completa del museo..."/>
+                        <field name="telefono" placeholder="+34 123 456 789"/>
+                        <field name="email" widget="email" placeholder="museo@ejemplo.com"/>
+                        <field name="website" widget="url" placeholder="https://www.museo-ejemplo.com"/>
+                        <!-- Reseña Histórica -->
+                        <field name="resenna_historica" widget="html" />
+                    </group>
+                    <!-- Pestañas -->
+                    <notebook>
+                        <!-- Objetos -->
+                        <page string="Objetos" name="objetos_page">
+                            <field name="objeto_ids">
+                                <list string="Objetos del Museo" editable="bottom" create="true">
+                                    <field name="imagen" widget="image" class="oe_avatar"/>
+                                    <field name="codigo_inventario"/>
+                                    <field name="name"/>
+                                    <field name="categoria"/>
+                                    <field name="estado_conservacion"/>
+                                    <field name="valor_estimado" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                    <field name="ubicacion_actual"/>
+                                    <field name="historia" widget="html" />
+                                    <field name="observaciones" widget="textarea" />
+                                </list>
+                            </field>
+                        </page>
+                        <!-- Historias de Barrios -->
+                        <page string="Historias de Barrios" name="historias_page">
+                            <field name="historia_barrio_ids">
+                                <list string="Historias de Barrios" editable="bottom" create="true">
+                                    <field name="name"/>
+                                    <field name="barrio"/>
+                                    <field name="ciudad"/>
+                                    <field name="fecha_registro"/>
+                                    <field name="estado_investigacion"/>
+                                    <field name="fuente"/>
+                                    <field name="investigador_responsable"/>
+                                    <field name="documentacion" filename="documentacion_filename" widget="binary"/>
+                                    <field name="contenido_historico" widget="html" />
+                                    <field name="testimonios" widget="textarea" />
+                                </list>
+                            </field>
+                        </page>
+                        <!-- Convenios -->
+                        <page string="Convenios" name="convenios_page">
+                            <field name="convenio_ids">
+                                <list string="Convenios" editable="bottom" create="true">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="tipo_convenio"/>
+                                    <field name="estado"/>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                    <field name="monto" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!-- Actividades -->
+                        <page string="Actividades" name="actividades_page">
+                            <field name="actividad_ids">
+                                <list string="Actividades" editable="bottom" create="true">
+                                    <field name="name"/>
+                                    <field name="tipo_actividad"/>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                    <field name="estado"/>
+                                    <field name="asistentes_confirmados"/>
+                                    <field name="capacidad_maxima"/>
+                                    <field name="sala"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!-- Informes -->
+                        <page string="Informes" name="informes_page">
+                            <field name="informe_ids">
+                                <list string="Informes Estadísticos" editable="bottom" create="true">
+                                    <field name="name"/>
+                                    <field name="periodo"/>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                    <field name="estado"/>
+                                    <field name="total_actividades"/>
+                                    <field name="total_asistentes"/>
+                                    <field name="ingresos_totales" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!-- Galería de Fotos -->
+                        <page string="Galería de Fotos" name="galeria_page">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <i class="fa fa-info-circle mr-2"></i>
+                    Puedes subir múltiples imágenes para mostrar en la galería del museo. 
+                    Marca una como "Principal" para que aparezca como imagen destacada.
+                            </div>
+                            <field name="galeria_ids">
+                                <kanban class="o_kanban_mobile">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="imagen"/>
+                                    <field name="es_imagen_principal"/>
+                                    <field name="categoria"/>
+                                    <field name="descripcion"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click o_museo_galeria_kanban">
+                                                <div class="o_kanban_image_wrapper">
+                                                    <img t-att-src="kanban_image('museo.museo.galeria', 'imagen', record.id.raw_value)"
+                                             alt=""
+                                             class="img-fluid o_kanban_image"/>
+                                                    <t t-if="record.es_imagen_principal.raw_value">
+                                                        <span class="badge badge-warning position-absolute top-0 end-0 m-1" 
+                                                  title="Imagen Principal">
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                                    </t>
+                                                </div>
+                                                <div class="o_kanban_details">
+                                                    <strong>
+                                                        <field name="name"/>
+                                                    </strong>
+                                                    <div class="text-muted small">
+                                                        <field name="categoria"/>
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        <field name="descripcion" class="text-truncate" style="max-height: 20px;"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                            <div class="text-center mt-3">
+                                <button name="action_view_galeria" type="object" 
+                            class="btn btn-link" string="Ver Galería Completa">
+                                    <i class="fa fa-external-link mr-1"></i>
+                        Abrir galería en vista completa
+                                </button>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Lista de Museos -->
+    <record id="view_museo_museo_list" model="ir.ui.view">
+        <field name="name">museo.museo.list</field>
+        <field name="model">museo.museo</field>
+        <field name="arch" type="xml">
+            <list string="Museos" decoration-muted="active == False">
+                <field name="name"/>
+                <field name="fecha_creacion"/>
+                <field name="company_id"/>
+                <field name="total_objetos"  />
+                <field name="total_actividades"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+    <!-- Búsqueda de Museos -->
+    <record id="view_museo_museo_search" model="ir.ui.view">
+        <field name="name">museo.museo.search</field>
+        <field name="model">museo.museo</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Museos">
+                <field name="name"/>
+                <field name="company_id"/>
+                <filter string="Activos" name="activos" domain="[('active', '=', True)]"/>
+                <filter string="Inactivos" name="inactivos" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Hoy" name="hoy" domain="[('fecha_creacion', '=', context_today())]"/>
+                <filter string="Esta semana" name="esta_semana" domain="[('fecha_creacion', '>=', context_today() - 7)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Compañía" name="grupo_company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Fecha de Creación" name="grupo_fecha" context="{'group_by': 'fecha_creacion:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- Acciones -->
+    <record id="action_museo_museo" model="ir.actions.act_window">
+        <field name="name">Museos</field>
+        <field name="res_model">museo.museo</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay museos registrados.
+            </p>
+            <p>
+                Cree un nuevo museo para comenzar a gestionar sus objetos, actividades e informes.
+            </p>
+        </field>
+    </record>
+</odoo>

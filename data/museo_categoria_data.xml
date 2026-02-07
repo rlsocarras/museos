@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Categoría de evento para actividades de museo -->
+    <record id="categoria_actividad_museo" model="calendar.event.type">
+        <field name="name">Actividad de Museo</field>
+        <field name="color">10</field> <!-- Color azul -->
+    </record>
+</odoo>

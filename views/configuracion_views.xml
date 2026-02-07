@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de Configuración de Museos -->
+    <record id="view_museo_config_settings_form" model="ir.ui.view">
+        <field name="name">museo.config.settings.form</field>
+        <field name="model">museo.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configuración de Museos">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Configuración del Sistema de Museos</h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <div class="alert alert-info" role="alert">
+                                <i class="fa fa-info-circle mr-2"></i>
+                                Configura los parámetros generales del sistema de gestión de museos
+                            </div>
+                        </group>
+                    </group>
+                    
+                    <!-- Sección de Informes -->
+                    <notebook>
+                        <page string="Informes Automáticos">
+                            <group>
+                                <group>
+                                    <field name="generar_informes_auto" widget="boolean_button"/>
+                                    <field name="frecuencia_informes"/>
+                                    <field name="dias_previos_aviso"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Actividades">
+                            <group>
+                                <group>
+                                    <field name="capacidad_maxima_default"/>
+                                    <field name="dias_antelacion_reserva"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Convenios">
+                            <group>
+                                <group>
+                                    <field name="aviso_vencimiento_convenio"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Notificaciones">
+                            <group>
+                                <group>
+                                    <field name="notificar_actividades" widget="boolean_button"/>
+                                    <field name="dias_previos_notificacion"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <footer>
+                    <button name="execute" string="Aplicar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para Configuración -->
+    <record id="action_museo_config_settings" model="ir.actions.act_window">
+        <field name="name">Configuración de Museos</field>
+        <field name="res_model">museo.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configuración del sistema de museos
+            </p>
+            <p>
+                Configure los parámetros generales del sistema de gestión de museos.
+            </p>
+        </field>
+    </record>
+
+    
+</odoo>

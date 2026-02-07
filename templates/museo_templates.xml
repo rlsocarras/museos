@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="museo_template_new" name="Detalle de Museo" active="True">
+            <t t-call="website.layout">
+                <t t-set="title" t-value="museo.name"/>
+                
+                <!-- CSS y Fonts -->
+                <t t-set="head">
+                    <link href="/museos/static\lib\fancybox\cloudflare\all.min.css/" rel="stylesheet"/>
+                    <link rel="stylesheet" href="museos\static\lib\fancybox\cloudflare\googleapis.css"/>
+                    <link rel="stylesheet" href="/museos/static/css/museo_carousel.css"/>
+                    <link rel="stylesheet" href="/museos/static/css/detalle_museo.css"/>
+                   
+                </t>
+                
+                <!-- Header -->
+                <header>
+                    <div class="container">
+                        <div class="header-content">
+                            <div class="logo">
+                                <div class="logo-icon">
+                                    <i class="fas fa-landmark"></i>
+                                </div>
+                                <div class="logo-text">
+                                    <t t-esc="museo.name"/>
+                                </div>
+                            </div>
+                            
+                            <nav>
+                                <ul>
+                                    <li><a href="#" class="active" onclick="showTab('objetos')">
+                                        <i class="fas fa-book"></i> Objetos
+                                    </a></li>
+                                    <li><a href="#" onclick="showTab('actividades')">
+                                        <i class="fas fa-calendar-alt"></i> Actividades
+                                    </a></li>
+                                    <li><a href="#" onclick="showTab('galeria')">
+                                        <i class="fas fa-images"></i> Galería
+                                    </a></li>
+                                    <li><a href="#" onclick="showTab('historia')">
+                                        <i class="fas fa-history"></i> Historias
+                                    </a></li>
+                                    <li><a href="#" onclick="showTab('convenios')">
+                                        <i class="fas fa-handshake"></i> Convenios
+                                    </a></li>
+                                    <li><a href="#" onclick="showTab('equipo')">
+                                        <i class="fas fa-users"></i> Equipo
+                                    </a></li>
+                                </ul>
+                            </nav>
+                            
+                            <div class="user-menu">
+                                <div class="user-info">
+                                    <div class="user-name">Portal de Visitantes</div>
+                                    <div class="user-role">Museo
+                                        <t t-esc="museo.name"/>
+                                    </div>
+                                </div>
+                                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Hero Section with Museum Image -->
+                <section class="hero" t-att-style="'background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/web/image/museo.museo/' + str(museo.id) + '/imagen_principal) no-repeat center center; background-size: cover;'">
+                    <div class="container">
+                        <h1>
+                            <t t-esc="museo.name"/>
+                        </h1>
+                        <p>
+                            <t t-if="museo.resenna_historica">
+                                <t t-esc="museo.resenna_historica.replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:200]"/>
+                                ...
+                            </t>
+                            <t t-else="">
+                                Explora nuestras colecciones, participa en eventos exclusivos y conoce nuestra historia.
+                            </t>
+                        </p>
+                        <a href="#estadisticas" class="cta-button" onclick="showTab('estadisticas')">
+                            Ver Estadísticas <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Statistics Section -->
+                <section class="stats-section" id="estadisticas">
+                    <div class="container">
+                        <h2 class="section-title">Estadísticas del Museo</h2>
+                        
+                        <div class="stats-container">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="stat-number">
+                                    <t t-esc="museo.total_objetos or 0"/>
+                                </div>
+                                <div class="stat-label">Objetos en Colección</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-number">
+                                    <t t-esc="museo.total_actividades or 0"/>
+                                </div>
+                                <div class="stat-label">Actividades Realizadas</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="stat-number">
+                                    <t t-esc="museo.total_convenios or 0"/>
+                                </div>
+                                <div class="stat-label">Convenios Activos</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-number">
+                                    <t t-esc="museo.informes_publicados or 0"/>
+                                </div>
+                                <div class="stat-label">Informes Publicados</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Activities Timeline Section -->
+                <section class="section timeline-section" id="actividades">
+                        <div class="container">
+                            <h2 class="section-title">Calendario de Actividades</h2>
+                            
+                            <t t-if="museo.actividad_ids">
+                                <div class="grid-container grid-3">
+                                    <t t-foreach="museo.actividad_ids.sorted(key='fecha_inicio', reverse=True)" t-as="actividad">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h3 class="card-title">
+                                                        <t t-esc="actividad.name"/>
+                                                    </h3>
+                                                    <span t-att-class="'badge badge-' + {
+                                                        'planificada': 'secondary',
+                                                        'confirmada': 'primary',
+                                                        'en_curso': 'warning',
+                                                        'realizada': 'success',
+                                                        'cancelada': 'danger',
+                                                        'pospuesta': 'info'
+                                                    }.get(actividad.estado, 'secondary')">
+                                                        <t t-esc="actividad.estado"/>
+                                                    </span>
+                                                </div>
+                                                <p class="card-text">
+                                                    <span class="badge badge-info">
+                                                        <t t-esc="actividad.tipo_actividad"/>
+                                                    </span>
+                                                </p>
+                                                <div class="row mb-2">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Inicio</small>
+                                                        <strong>
+                                                            <t t-esc="actividad.fecha_inicio.strftime('%d/%m/%Y %H:%M') if actividad.fecha_inicio else ''"/>
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Fin</small>
+                                                        <strong>
+                                                            <t t-esc="actividad.fecha_fin.strftime('%d/%m/%Y %H:%M') if actividad.fecha_fin else ''"/>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <p class="card-text">
+                                                    <i class="fas fa-users mr-2"></i>
+                                                    <t t-esc="actividad.asistentes_confirmados or 0"/>
+                                                    /
+                                                    <t t-esc="actividad.capacidad_maxima or 0"/>
+                                                    asistentes
+                                                </p>
+                                                <t t-if="actividad.sala">
+                                                    <p class="card-text">
+                                                        <i class="fas fa-map-marker-alt mr-2"></i>
+                                                        <t t-esc="actividad.sala"/>
+                                                    </p>
+                                                </t>
+                                                <p class="card-text text-truncate">
+                                                    <t t-esc="(actividad.descripcion or '').replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:150]"/>...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-calendar-alt fa-4x text-muted mb-3"></i>
+                                    <h3>No hay actividades programadas</h3>
+                                    <p class="text-muted">No hay actividades programadas para este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+                </section>
+
+                <!-- Trabajadores Section -->
+                <section class="section timeline-section" id="trabajadores">
+                        <div class="container">
+                             <h2 class="section-title">Equipo de trabajo</h2>
+
+                             <t t-set="trabajadores" t-value="request.env['res.partner'].sudo().search([
+                                ('is_trabajador_museo', '=', True),
+                                ('actividad_ids.museo_id', 'in', [museo.id])
+                            ], order='name')"/>
+                            
+                            <t t-if="trabajadores and len(trabajadores) > 0">
+                                <div class="team-grid">
+                                    <t t-foreach="trabajadores" t-as="trabajador">
+                                        <div class="team-card">
+                                            <t t-if="trabajador.image_1920">
+                                                <img t-att-src="'/web/image/res.partner/' + str(trabajador.id) + '/image_1920'"
+                                                     class="team-avatar" t-att-alt="trabajador.name"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="team-avatar" style="background-color: var(--gray); display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                                </div>
+                                            </t>
+                                            <h3 class="team-name">
+                                                <t t-esc="trabajador.name"/>
+                                            </h3>
+                                            <div class="team-role">
+                                                <t t-esc="trabajador.cargo or 'Trabajador del Museo'"/>
+                                            </div>
+                                            <t t-if="trabajador.especialidad">
+                                                <p>
+                                                    <small>
+                                                        <i class="fas fa-graduation-cap mr-1"></i>
+                                                        <t t-esc="trabajador.especialidad"/>
+                                                    </small>
+                                                </p>
+                                            </t>
+                                            <p class="mt-2">
+                                                <span class="badge badge-primary">
+                                                    <i class="fas fa-calendar mr-1"></i>
+                                                    <t t-if="trabajador.fecha_ingreso">
+                                                        Desde
+                                                        <t t-esc="trabajador.fecha_ingreso.strftime('%Y')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        Miembro del equipo
+                                                    </t>
+                                                </span>
+                                            </p>
+                                            <t t-if="trabajador.horas_semanales">
+                                                <p>
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-clock mr-1"></i>
+                                                        <t t-esc="trabajador.horas_semanales"/> horas/semana
+                                                    </small>
+                                                </p>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-users fa-4x text-muted mb-3"></i>
+                                    <h3>No hay equipo registrado</h3>
+                                    <p class="text-muted">No hay trabajadores registrados para este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+                </section>
+
+                <!-- Tabs Navigation -->
+                <section class="tabs-section">
+                    <div class="container">
+                        <div class="tabs-navigation">
+                            <button class="tab-button active" onclick="showTab('objetos')">
+                                <i class="fas fa-book mr-2"></i>Objetos (
+                                <t t-esc="len(museo.objeto_ids)"/>)
+                            </button>
+                            <button class="tab-button" onclick="showTab('actividades')">
+                                <i class="fas fa-calendar-alt mr-2"></i>Actividades (
+                                <t t-esc="len(museo.actividad_ids)"/>)
+                            </button>
+                            <button class="tab-button" onclick="showTab('galeria')">
+                                <i class="fas fa-images mr-2"></i>Galería (
+                                <t t-esc="len(museo.galeria_ids)"/>)
+                            </button>
+                            <button class="tab-button" onclick="showTab('historia')">
+                                <i class="fas fa-history mr-2"></i>Historias (
+                                <t t-esc="len(museo.historia_barrio_ids)"/>)
+                            </button>
+                            <button class="tab-button" onclick="showTab('convenios')">
+                                <i class="fas fa-handshake mr-2"></i>Convenios (
+                                <t t-esc="len(museo.convenio_ids)"/>)
+                            </button>
+                            <button class="tab-button" onclick="showTab('equipo')">
+                                <i class="fas fa-users mr-2"></i>Equipo
+                            </button>
+                        </div>
+
+                        <!-- Tab: Objetos -->
+                        <div class="tab-content active" id="objetosTab">
+                            <t t-if="museo.objeto_ids">
+                                <div class="grid-container grid-3">
+                                    <t t-foreach="museo.objeto_ids" t-as="objeto">
+                                        <div class="card">
+                                            <t t-if="objeto.imagen">
+                                                <img t-att-src="'/web/image/museo.objeto/' + str(objeto.id) + '/imagen'"
+                                                     class="card-image" t-att-alt="objeto.name"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="card-image" style="background-color: var(--gray); display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-archive fa-4x text-muted"></i>
+                                                </div>
+                                            </t>
+                                            <div class="card-content">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h3 class="card-title">
+                                                        <t t-esc="objeto.name"/>
+                                                    </h3>
+                                                    <span t-att-class="'badge badge-' + {
+                                                        'excelente': 'success',
+                                                        'bueno': 'primary',
+                                                        'regular': 'warning',
+                                                        'malo': 'danger',
+                                                        'restauracion': 'info'
+                                                    }.get(objeto.estado_conservacion, 'secondary')">
+                                                        <t t-esc="objeto.estado_conservacion"/>
+                                                    </span>
+                                                </div>
+                                                <p class="card-text">
+                                                    <small>
+                                                        <i class="fas fa-barcode mr-1"></i>
+                                                        <t t-esc="objeto.codigo_inventario"/>
+                                                    </small>
+                                                </p>
+                                                <p class="card-text">
+                                                    <span t-att-class="'badge badge-' + {
+                                                        'arqueologico': 'warning',
+                                                        'historico': 'danger',
+                                                        'artistico': 'info',
+                                                        'etnografico': 'success',
+                                                        'cientifico': 'primary',
+                                                        'otros': 'secondary'
+                                                    }.get(objeto.categoria, 'secondary')">
+                                                        <t t-esc="objeto.categoria"/>
+                                                    </span>
+                                                </p>
+                                                <p class="card-text text-truncate">
+                                                    <t t-esc="(objeto.historia or '').replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:150]"/>...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-archive fa-4x text-muted mb-3"></i>
+                                    <h3>No hay objetos registrados</h3>
+                                    <p class="text-muted">Este museo no tiene objetos registrados todavía.</p>
+                                </div>
+                            </t>
+                        </div>
+
+                        <!-- Tab: Actividades -->
+                        <div class="tab-content" id="actividadesTab">
+                            <t t-if="museo.actividad_ids">
+                                <div class="grid-container grid-3">
+                                    <t t-foreach="museo.actividad_ids.sorted(key='fecha_inicio', reverse=True)" t-as="actividad">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h3 class="card-title">
+                                                        <t t-esc="actividad.name"/>
+                                                    </h3>
+                                                    <span t-att-class="'badge badge-' + {
+                                                        'planificada': 'secondary',
+                                                        'confirmada': 'primary',
+                                                        'en_curso': 'warning',
+                                                        'realizada': 'success',
+                                                        'cancelada': 'danger',
+                                                        'pospuesta': 'info'
+                                                    }.get(actividad.estado, 'secondary')">
+                                                        <t t-esc="actividad.estado"/>
+                                                    </span>
+                                                </div>
+                                                <p class="card-text">
+                                                    <span class="badge badge-info">
+                                                        <t t-esc="actividad.tipo_actividad"/>
+                                                    </span>
+                                                </p>
+                                                <div class="row mb-2">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Inicio</small>
+                                                        <strong>
+                                                            <t t-esc="actividad.fecha_inicio.strftime('%d/%m/%Y %H:%M') if actividad.fecha_inicio else ''"/>
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Fin</small>
+                                                        <strong>
+                                                            <t t-esc="actividad.fecha_fin.strftime('%d/%m/%Y %H:%M') if actividad.fecha_fin else ''"/>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <p class="card-text">
+                                                    <i class="fas fa-users mr-2"></i>
+                                                    <t t-esc="actividad.asistentes_confirmados or 0"/>
+                                                    /
+                                                    <t t-esc="actividad.capacidad_maxima or 0"/>
+                                                    asistentes
+                                                </p>
+                                                <t t-if="actividad.sala">
+                                                    <p class="card-text">
+                                                        <i class="fas fa-map-marker-alt mr-2"></i>
+                                                        <t t-esc="actividad.sala"/>
+                                                    </p>
+                                                </t>
+                                                <p class="card-text text-truncate">
+                                                    <t t-esc="(actividad.descripcion or '').replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:150]"/>...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-calendar-alt fa-4x text-muted mb-3"></i>
+                                    <h3>No hay actividades programadas</h3>
+                                    <p class="text-muted">No hay actividades programadas para este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+
+                        <!-- Tab: Galería -->
+                        <div class="tab-content" id="galeriaTab">
+                            <t t-if="museo.galeria_ids">
+                                <!-- Carrusel Principal -->
+                                <div class="museo-carousel-section">
+                                    <div class="carousel-container">
+                                        <t t-foreach="museo.galeria_ids.sorted(key='sequence')" t-as="foto" >
+                                            <t t-set="index" t-value="loop_index"/>
+                                            <div t-att-class="'carousel-slide' + (' active' if loop_index == 0 else '')" 
+                                                 t-att-id="'slide-' + str(loop_index)">
+                                                <img t-att-src="'/web/image/museo.museo.galeria/' + str(foto.id) + '/imagen'"
+                                                     t-att-alt="foto.name"/>
+                                                <div class="carousel-caption">
+                                                    <h3>
+                                                        <t t-esc="foto.name"/>
+                                                        <t t-if="foto.es_imagen_principal">
+                                                            <span class="badge badge-warning ml-2">
+                                                                <i class="fas fa-star"></i> Principal
+                                                            </span>
+                                                        </t>
+                                                    </h3>
+                                                    <p class="mb-0">
+                                                        <t t-esc="foto.categoria"/>
+                                                        <t t-if="foto.descripcion"> -
+                                                            <t t-esc="foto.descripcion[:100]"/>
+                                                            <t t-if="len(foto.descripcion) > 100">...</t>
+                                                        </t>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </t>
+                                        <div class="carousel-controls">
+                                            <button class="carousel-control" onclick="prevSlide()">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </button>
+                                            <button class="carousel-control" onclick="nextSlide()">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-indicators">
+                                        <t t-foreach="museo.galeria_ids" t-as="foto" >
+                                            <t t-set="index" t-value="loop_index"/>
+                                            <button t-att-class="'carousel-indicator' + (' active' if loop_index == 0 else '')" 
+                                                    t-att-onclick="'goToSlide(' + str(loop_index) + ')'"></button>
+                                        </t>
+                                    </div>
+                                </div>
+                                
+                                <!-- Grid de Galería -->
+                                <h3 class="mt-5 mb-3">Toda la Galería</h3>
+                                <div class="gallery-grid">
+                                    <t t-foreach="museo.galeria_ids.sorted(key='sequence')" t-as="foto">
+                                        <div class="gallery-item" onclick="goToSlide(
+                                            &lt;t t-esc='loop_index'/&gt;)">
+                                            <img t-att-src="'/web/image/museo.museo.galeria/' + str(foto.id) + '/imagen'"
+                                                 class="gallery-img" t-att-alt="foto.name"/>
+                                            <div class="gallery-caption">
+                                                <t t-esc="foto.name"/>
+                                                <t t-if="foto.es_imagen_principal">
+                                                    <i class="fas fa-star ml-1"></i>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-images fa-4x text-muted mb-3"></i>
+                                    <h3>Galería vacía</h3>
+                                    <p class="text-muted">No hay imágenes en la galería de este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+
+                        <!-- Tab: Historias de Barrios -->
+                        <div class="tab-content" id="historiaTab">
+                            <t t-if="museo.historia_barrio_ids">
+                                <div class="grid-container grid-3">
+                                    <t t-foreach="museo.historia_barrio_ids.sorted(key='fecha_registro', reverse=True)" t-as="historia">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <h3 class="card-title">
+                                                    <t t-esc="historia.name"/>
+                                                </h3>
+                                                <p class="card-text">
+                                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                                    <span class="badge badge-primary">
+                                                        <t t-esc="historia.barrio"/>
+                                                    </span>
+                                                    <t t-if="historia.ciudad">,
+                                                        <t t-esc="historia.ciudad"/>
+                                                    </t>
+                                                </p>
+                                                <p class="card-text">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-calendar mr-2"></i>
+                                                        Registrado el
+                                                        <t t-esc="historia.fecha_registro.strftime('%d/%m/%Y') if historia.fecha_registro else ''"/>
+                                                    </small>
+                                                </p>
+                                                <p class="card-text">
+                                                    <span t-att-class="'badge badge-' + {
+                                                        'inicial': 'secondary',
+                                                        'avanzada': 'warning',
+                                                        'completada': 'primary',
+                                                        'publicada': 'success'
+                                                    }.get(historia.estado_investigacion, 'info')">
+                                                        <t t-esc="historia.estado_investigacion"/>
+                                                    </span>
+                                                </p>
+                                                <p class="card-text">
+                                                    <span class="badge badge-secondary">
+                                                        <i class="fas fa-file-alt mr-1"></i>
+                                                        <t t-esc="historia.fuente"/>
+                                                    </span>
+                                                </p>
+                                                <p class="card-text text-truncate">
+                                                    <t t-esc="(historia.contenido_historico or '').replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:150]"/>...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-history fa-4x text-muted mb-3"></i>
+                                    <h3>No hay historias registradas</h3>
+                                    <p class="text-muted">No hay historias de barrios registradas para este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+
+                        <!-- Tab: Convenios -->
+                        <div class="tab-content" id="conveniosTab">
+                            <t t-if="museo.convenio_ids">
+                                <div class="grid-container grid-3">
+                                    <t t-foreach="museo.convenio_ids.filtered(lambda r: r.active).sorted(key='fecha_inicio', reverse=True)" t-as="convenio">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h3 class="card-title">
+                                                        <t t-esc="convenio.name"/>
+                                                    </h3>
+                                                    <span t-att-class="'badge badge-' + {
+                                                        'borrador': 'secondary',
+                                                        'vigente': 'success',
+                                                        'vencido': 'danger',
+                                                        'cancelado': 'warning',
+                                                        'renovado': 'info'
+                                                    }.get(convenio.estado, 'secondary')">
+                                                        <t t-esc="convenio.estado"/>
+                                                    </span>
+                                                </div>
+                                                <p class="card-text">
+                                                    <i class="fas fa-building mr-2"></i>
+                                                    <strong>Entidad:</strong>
+                                                    <t t-esc="convenio.partner_id.name"/>
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fas fa-tag mr-2"></i>
+                                                    <span class="badge badge-info">
+                                                        <t t-esc="convenio.tipo_convenio"/>
+                                                    </span>
+                                                </p>
+                                                <div class="row mb-2">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Inicio</small>
+                                                        <strong>
+                                                            <t t-esc="convenio.fecha_inicio.strftime('%d/%m/%Y') if convenio.fecha_inicio else ''"/>
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Fin</small>
+                                                        <strong>
+                                                            <t t-if="convenio.fecha_fin" t-esc="convenio.fecha_fin.strftime('%d/%m/%Y')"/>
+                                                            <t t-else="">Indefinido</t>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <t t-if="convenio.monto and convenio.monto > 0">
+                                                    <p class="card-text">
+                                                        <i class="fas fa-money-bill-wave mr-2"></i>
+                                                        <strong>Monto:</strong>
+                                                        <span class="badge badge-success">
+                                                            <t t-esc="'{:,.2f}'.format(convenio.monto)"/>
+                                                        </span>
+                                                    </p>
+                                                </t>
+                                                <p class="card-text text-truncate">
+                                                    <t t-esc="(convenio.descripcion or '').replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:150]"/>...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-handshake fa-4x text-muted mb-3"></i>
+                                    <h3>No hay convenios registrados</h3>
+                                    <p class="text-muted">No hay convenios registrados para este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+
+                        <!-- Tab: Equipo -->
+                        <div class="tab-content" id="equipoTab">
+                            <t t-set="trabajadores" t-value="request.env['res.partner'].sudo().search([
+                                ('is_trabajador_museo', '=', True),
+                                ('actividad_ids.museo_id', 'in', [museo.id])
+                            ], order='name')"/>
+                            
+                            <t t-if="trabajadores and len(trabajadores) > 0">
+                                <div class="team-grid">
+                                    <t t-foreach="trabajadores" t-as="trabajador">
+                                        <div class="team-card">
+                                            <t t-if="trabajador.image_1920">
+                                                <img t-att-src="'/web/image/res.partner/' + str(trabajador.id) + '/image_1920'"
+                                                     class="team-avatar" t-att-alt="trabajador.name"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="team-avatar" style="background-color: var(--gray); display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                                </div>
+                                            </t>
+                                            <h3 class="team-name">
+                                                <t t-esc="trabajador.name"/>
+                                            </h3>
+                                            <div class="team-role">
+                                                <t t-esc="trabajador.cargo or 'Trabajador del Museo'"/>
+                                            </div>
+                                            <t t-if="trabajador.especialidad">
+                                                <p>
+                                                    <small>
+                                                        <i class="fas fa-graduation-cap mr-1"></i>
+                                                        <t t-esc="trabajador.especialidad"/>
+                                                    </small>
+                                                </p>
+                                            </t>
+                                            <p class="mt-2">
+                                                <span class="badge badge-primary">
+                                                    <i class="fas fa-calendar mr-1"></i>
+                                                    <t t-if="trabajador.fecha_ingreso">
+                                                        Desde
+                                                        <t t-esc="trabajador.fecha_ingreso.strftime('%Y')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        Miembro del equipo
+                                                    </t>
+                                                </span>
+                                            </p>
+                                            <t t-if="trabajador.horas_semanales">
+                                                <p>
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-clock mr-1"></i>
+                                                        <t t-esc="trabajador.horas_semanales"/> horas/semana
+                                                    </small>
+                                                </p>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-users fa-4x text-muted mb-3"></i>
+                                    <h3>No hay equipo registrado</h3>
+                                    <p class="text-muted">No hay trabajadores registrados para este museo.</p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer>
+                    <div class="container">
+                        <div class="footer-content">
+                            <div class="footer-column">
+                                <div class="footer-logo">
+                                    <t t-esc="museo.name"/>
+                                </div>
+                                <p class="footer-description">
+                                    <t t-if="museo.resenna_historica">
+                                        <t t-esc="museo.resenna_historica.replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:200]"/>...
+                                    </t>
+                                    <t t-else="">
+                                        Museo cultural dedicado a preservar y compartir nuestro patrimonio.
+                                    </t>
+                                </p>
+                                <t t-if="museo.email">
+                                    <p><i class="fas fa-envelope"></i> 
+                                        <t t-esc="museo.email"/>
+                                    </p>
+                                </t>
+                                <t t-if="museo.telefono">
+                                    <p><i class="fas fa-phone"></i> 
+                                        <t t-esc="museo.telefono"/>
+                                    </p>
+                                </t>
+                            </div>
+                            
+                            <div class="footer-column">
+                                <h3 class="footer-heading">Explorar</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#" onclick="showTab('objetos')"><i class="fas fa-palette"></i> Colecciones</a></li>
+                                    <li><a href="#" onclick="showTab('actividades')"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
+                                    <li><a href="#" onclick="showTab('galeria')"><i class="fas fa-images"></i> Galería</a></li>
+                                    <li><a href="#" onclick="showTab('historia')"><i class="fas fa-history"></i> Historia</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="footer-column">
+                                <h3 class="footer-heading">Enlaces Rápidos</h3>
+                                <ul class="footer-links">
+                                    <t t-if="museo.direccion">
+                                        <li><a href="#" onclick="showMap()"><i class="fas fa-map-marked-alt"></i> Cómo llegar</a></li>
+                                    </t>
+                                    <li><a href="#" onclick="showContactInfo()"><i class="fas fa-envelope"></i> Contacto</a></li>
+                                    <li><a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> Sitio Principal</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="copyright">
+                            <t t-esc="datetime.datetime.now().year"/> 
+                            <t t-esc="museo.name"/>. Todos los derechos reservados.
+                        </div>
+                    </div>
+                </footer>
+
+                <!-- JavaScript -->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    // Tab Management
+                    function showTab(tabName) {
+                        // Update active tab button
+                        document.querySelectorAll('.tab-button').forEach(button => {
+                            button.classList.remove('active');
+                        });
+                        event.currentTarget.classList.add('active');
+                        
+                        // Update active tab content
+                        document.querySelectorAll('.tab-content').forEach(tab => {
+                            tab.classList.remove('active');
+                        });
+                        document.getElementById(tabName + 'Tab').classList.add('active');
+                        
+                        // Update URL hash
+                        window.location.hash = tabName;
+                        
+                        // Update nav links
+                        document.querySelectorAll('nav a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        event.currentTarget.classList.add('active');
+                    }
+                    
+                    // Carousel functionality
+                    let currentSlide = 0;
+                    const slides = document.querySelectorAll('.carousel-slide');
+                    const indicators = document.querySelectorAll('.carousel-indicator');
+                    
+                    function showSlide(n) {
+                        slides.forEach(slide => slide.classList.remove('active'));
+                        indicators.forEach(indicator => indicator.classList.remove('active'));
+                        
+                        currentSlide = (n + slides.length) % slides.length;
+                        
+                        slides[currentSlide].classList.add('active');
+                        indicators[currentSlide].classList.add('active');
+                    }
+                    
+                    function nextSlide() {
+                        showSlide(currentSlide + 1);
+                    }
+                    
+                    function prevSlide() {
+                        showSlide(currentSlide - 1);
+                    }
+                    
+                    function goToSlide(n) {
+                        showSlide(n);
+                    }
+                    
+                    // Auto-rotate carousel
+                    let carouselInterval;
+                    
+                    function startCarousel() {
+                        carouselInterval = setInterval(nextSlide, 5000);
+                    }
+                    
+                    function stopCarousel() {
+                        clearInterval(carouselInterval);
+                    }
+                    
+                    // Initialize
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Check URL hash for tab
+                        const hash = window.location.hash.substring(1);
+                        if (hash &amp;&amp; document.getElementById(hash + 'Tab')) {
+                            showTab(hash);
+                        }
+                        
+                        // Start carousel if there are slides
+                        if (slides.length > 1) {
+                            startCarousel();
+                            
+                            // Pause on hover
+                            const carouselContainer = document.querySelector('.carousel-container');
+                            if (carouselContainer) {
+                                carouselContainer.addEventListener('mouseenter', stopCarousel);
+                                carouselContainer.addEventListener('mouseleave', startCarousel);
+                            }
+                        }
+                        
+                        // Add click handlers to all tab triggers
+                        document.querySelectorAll('.tab-button, nav a, .cta-button').forEach(element => {
+                            if (element.onclick &amp;&amp; element.onclick.toString().includes('showTab')) {
+                                // Already has handler
+                            } else if (element.getAttribute('onclick')) {
+                                // Already has handler
+                            } else if (element.href &amp;&amp; element.href.includes('#')) {
+                                element.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    const tabName = this.getAttribute('href').substring(1);
+                                    if (tabName) {
+                                        showTab(tabName);
+                                    }
+                                });
+                            }
+                        });
+                        
+                        // Add interactivity to cards
+                        document.querySelectorAll('.card').forEach(card => {
+                            card.addEventListener('click', function() {
+                                this.style.transform = 'translateY(-8px)';
+                                setTimeout(() => {
+                                    this.style.transform = 'translateY(-5px)';
+                                }, 300);
+                            });
+                        });
+                    });
+                    
+                    // Utility functions
+                    function showMap() {
+                        const address = "<t t-esc="museo.direccion or 'Dirección no disponible'"/>";
+                        alert('Ubicación del museo:\\n\\n' + address + '\\n\\nEsta funcionalidad mostraría un mapa interactivo.');
+                    }
+                    
+                    function showContactInfo() {
+                        const info = `Información de contacto:
+                        \nEmail: <t t-esc="museo.email or 'No disponible'"/>
+                        \nTeléfono: <t t-esc="museo.telefono or 'No disponible'"/>
+                        \nDirección: <t t-esc="museo.direccion or 'No disponible'"/>`;
+                        alert(info);
+                    }
+                    
+                    // Handle hash changes
+                    window.addEventListener('hashchange', function() {
+                        const hash = window.location.hash.substring(1);
+                        if (hash &amp;&amp; document.getElementById(hash + 'Tab')) {
+                            showTab(hash);
+                        }
+                    });
+                </script>
+            </t>
+        </template>
+    </data>
+</odoo>

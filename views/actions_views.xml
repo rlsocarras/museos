@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Acciones simples para menús -->
+    
+    <!-- Acción de servidor para limpiar datos -->
+    <record id="action_museo_limpiar_datos" model="ir.actions.server">
+        <field name="name">Limpiar Datos Temporales</field>
+        <field name="model_id" ref="model_museo_informe"/>
+        <field name="state">code</field>
+        <field name="code">
+# Limpiar datos temporales
+informes_borrador = env['museo.informe'].search([
+    ('estado', '=', 'borrador'),
+    ('fecha_generacion', '&lt;', datetime.now() - timedelta(days=30))
+])
+cantidad = len(informes_borrador)
+informes_borrador.unlink()
+
+# Mostrar notificación
+action = {
+    'type': 'ir.actions.client',
+    'tag': 'display_notification',
+    'params': {
+        'title': 'Limpieza Completada',
+        'message': f'Se eliminaron {cantidad} informes en borrador antiguos.',
+        'type': 'info',
+        'sticky': False,
+    }
+}
+        </field>
+    </record>
+</odoo>

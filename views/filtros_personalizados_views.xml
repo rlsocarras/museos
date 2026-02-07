@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Filtros Personalizados para Museos -->
+    
+    <!-- Filtro por Rango de Fechas de Creación -->
+    <record id="filter_museo_fecha_creacion_rango" model="ir.filters">
+        <field name="name">Museos por Rango de Fecha de Creación</field>
+        <field name="model_id">museo.museo</field>
+        <field name="domain">[]</field>
+        <field name="context">{'group_by': []}</field>
+        <field name="is_default" eval="False"/>
+        <field name="action_id" ref="action_museo_museo"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Filtro para Museos con Muchas Actividades -->
+    <record id="filter_museo_muchas_actividades" model="ir.filters">
+        <field name="name">Museos con &gt; 10 Actividades</field>
+        <field name="model_id">museo.museo</field>
+        <field name="domain">[('total_actividades', '&gt;', 10)]</field>
+        <field name="context">{'group_by': ['company_id']}</field>
+        <field name="is_default" eval="False"/>
+        <field name="action_id" ref="action_museo_museo"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Filtro para Objetos por Valor Estimado -->
+    <record id="filter_objeto_valor_alto" model="ir.filters">
+        <field name="name">Objetos de Alto Valor (&gt; $10,000)</field>
+        <field name="model_id">museo.objeto</field>
+        <field name="domain">[('valor_estimado', '&gt;', 10000)]</field>
+        <field name="context">{'group_by': ['categoria']}</field>
+        <field name="is_default" eval="False"/>
+        <field name="action_id" ref="action_museo_objeto"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Filtro para Actividades Próximas -->
+    <record id="filter_actividad_proximas_semana" model="ir.filters">
+        <field name="name">Actividades Próximas (7 días)</field>
+        <field name="model_id">museo.actividad</field>
+        <field name="domain">[('fecha_inicio', '&gt;=', context_today()), ('fecha_inicio', '&lt;=', context_today() + 7)]</field>
+        <field name="context">{'group_by': ['tipo_actividad']}</field>
+        <field name="is_default" eval="True"/>
+        <field name="action_id" ref="action_museo_actividad"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Filtro para Convenios Vigentes -->
+    <record id="filter_convenio_vigentes" model="ir.filters">
+        <field name="name">Convenios Vigentes</field>
+        <field name="model_id">museo.convenio</field>
+        <field name="domain">[('estado', '=', 'vigente')]</field>
+        <field name="context">{'group_by': ['tipo_convenio']}</field>
+        <field name="is_default" eval="True"/>
+        <field name="action_id" ref="action_museo_convenio"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Filtro para Informes del Año Actual -->
+    <record id="filter_informe_ano_actual" model="ir.filters">
+        <field name="name">Informes del Año Actual</field>
+        <field name="model_id">museo.informe</field>
+        <field name="domain">[('fecha_inicio', '&gt;=', '2026-01-01')]</field>
+        <field name="context">{'group_by': ['periodo']}</field>
+        <field name="is_default" eval="True"/>
+        <field name="action_id" ref="action_museo_informe"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

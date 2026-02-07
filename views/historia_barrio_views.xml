@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario de Historia de Barrio -->
+    <record id="view_museo_historia_barrio_form" model="ir.ui.view">
+        <field name="name">museo.historia.barrio.form</field>
+        <field name="model">museo.historia.barrio</field>
+        <field name="arch" type="xml">
+            <form string="Historia de Barrio">
+                <header>
+                    <button name="%(action_museo_museo)d" type="action" string="Museos" class="btn-secondary"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Título de la Historia"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="museo_id"/>
+                            <field name="barrio"/>
+                            <field name="ciudad"/>
+                            <field name="fecha_registro" widget="date"/>
+                            <field name="fuente"/>
+                        </group>
+                        <group>
+                            <field name="estado_investigacion"/>
+                            <field name="investigador_responsable"/>
+                            <field name="documentacion" filename="documentacion_filename" widget="binary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenido Histórico">
+                            <field name="contenido_historico" widget="html" nolabel="1"/>
+                        </page>
+                        <page string="Testimonios">
+                            <field name="testimonios" widget="textarea" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Lista de Historias de Barrio -->
+    <record id="view_museo_historia_barrio_tree" model="ir.ui.view">
+        <field name="name">museo.historia.barrio.tree</field>
+        <field name="model">museo.historia.barrio</field>
+        <field name="arch" type="xml">
+            <list string="Historias de Barrios" decoration-muted="active == False" decoration-info="estado_investigacion == 'publicada'">
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="barrio"/>
+                <field name="fecha_registro"/>
+                <field name="estado_investigacion"/>
+                <field name="fuente"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Búsqueda de Historias de Barrio -->
+    <record id="view_museo_historia_barrio_search" model="ir.ui.view">
+        <field name="name">museo.historia.barrio.search</field>
+        <field name="model">museo.historia.barrio</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Historias de Barrios">
+                <field name="name"/>
+                <field name="barrio"/>
+                <field name="museo_id"/>
+                <field name="fuente"/>
+                <separator/>
+                <filter string="Publicadas" name="publicadas" domain="[('estado_investigacion', '=', 'publicada')]"/>
+                <filter string="Completadas" name="completadas" domain="[('estado_investigacion', '=', 'completada')]"/>
+                <filter string="Este mes" name="este_mes" domain="[('fecha_registro', '>=', context_today().replace(day=1))]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Museo" name="grupo_museo" context="{'group_by': 'museo_id'}"/>
+                    <filter string="Estado Investigación" name="grupo_estado" context="{'group_by': 'estado_investigacion'}"/>
+                    <filter string="Fuente" name="grupo_fuente" context="{'group_by': 'fuente'}"/>
+                    <filter string="Mes" name="grupo_mes" context="{'group_by': 'fecha_registro:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Historias de Barrio -->
+    <record id="action_museo_historia_barrio" model="ir.actions.act_window">
+        <field name="name">Historias de Barrios</field>
+        <field name="res_model">museo.historia.barrio</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay historias de barrios registradas.
+            </p>
+            <p>
+                Registre historias y testimonios de los barrios relacionados con el museo.
+            </p>
+        </field>
+    </record>
+</odoo>

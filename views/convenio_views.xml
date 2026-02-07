@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario de Convenio -->
+    <record id="view_museo_convenio_form" model="ir.ui.view">
+        <field name="name">museo.convenio.form</field>
+        <field name="model">museo.convenio</field>
+        <field name="arch" type="xml">
+            <form string="Convenio de Trabajo">
+                <header>
+                    <!-- <button name="action_activar" type="object" string="Activar" states="borrador" class="btn-primary"/>
+                    <button name="action_renovar" type="object" string="Renovar" states="vencido" class="btn-secondary"/>
+                    <button name="action_cancelar" type="object" string="Cancelar" states="borrador,vigente" class="btn-secondary"/> -->
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,vigente,vencido,cancelado,renovado"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del Convenio"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="museo_id"/>
+                            <field name="partner_id" widget="many2one"/>
+                            <field name="tipo_convenio"/>
+                            <field name="estado"/>
+                            <field name="fecha_inicio" widget="date"/>
+                            <field name="fecha_fin" widget="date"/>
+                        </group>
+                        <group>
+                            <field name="responsable_museo"/>
+                            <field name="monto" widget="monetary"/>
+                            <field name="documento" filename="documento_filename" widget="binary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripción">
+                            <field name="descripcion" widget="html" nolabel="1"/>
+                        </page>
+                        <page string="Objetivos">
+                            <field name="objetivos" widget="textarea" nolabel="1"/>
+                        </page>
+                        <page string="Observaciones">
+                            <field name="observaciones" widget="textarea" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Lista de Convenios -->
+    <record id="view_museo_convenio_tree" model="ir.ui.view">
+        <field name="name">museo.convenio.tree</field>
+        <field name="model">museo.convenio</field>
+        <field name="arch" type="xml">
+            <list string="Convenios" decoration-danger="estado == 'vencido'" decoration-warning="estado == 'cancelado'" decoration-success="estado == 'vigente'">
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="partner_id"/>
+                <field name="tipo_convenio"/>
+                <field name="estado"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="monto" widget="monetary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Búsqueda de Convenios -->
+    <record id="view_museo_convenio_search" model="ir.ui.view">
+        <field name="name">museo.convenio.search</field>
+        <field name="model">museo.convenio</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Convenios">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="museo_id"/>
+                <field name="tipo_convenio"/>
+                <field name="estado"/>
+                <separator/>
+                <filter string="Vigentes" name="vigentes" domain="[('estado', '=', 'vigente')]"/>
+                <filter string="Vencidos" name="vencidos" domain="[('estado', '=', 'vencido')]"/>
+                <filter string="Por vencer (30 días)" name="por_vencer" domain="[('fecha_fin', '&lt;=', context_today()), ('fecha_fin', '&gt;=', context_today() + 30)]"/>
+                <filter string="Sin fecha fin" name="sin_fecha_fin" domain="[('fecha_fin', '=', False)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Museo" name="grupo_museo" context="{'group_by': 'museo_id'}"/>
+                    <filter string="Tipo" name="grupo_tipo" context="{'group_by': 'tipo_convenio'}"/>
+                    <filter string="Estado" name="grupo_estado" context="{'group_by': 'estado'}"/>
+                    <filter string="Año" name="grupo_anio" context="{'group_by': 'fecha_inicio:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Convenios -->
+    <record id="action_museo_convenio" model="ir.actions.act_window">
+        <field name="name">Convenios de Trabajo</field>
+        <field name="res_model">museo.convenio</field>
+        <field name="view_mode">list,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay convenios registrados.
+            </p>
+            <p>
+                Cree convenios de trabajo con instituciones, universidades y otras organizaciones.
+            </p>
+        </field>
+    </record>
+
+    <!-- Vista de Gráfico para Convenios -->
+    <record id="view_museo_convenio_graph" model="ir.ui.view">
+        <field name="name">museo.convenio.graph</field>
+        <field name="model">museo.convenio</field>
+        <field name="arch" type="xml">
+            <graph string="Análisis de Convenios" type="bar">
+                <field name="tipo_convenio" type="row"/>
+                <field name="monto" type="measure"/>
+                <field name="estado" type="col"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

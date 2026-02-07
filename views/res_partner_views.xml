@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extensión del formulario de Contacto para Trabajadores -->
+    <record id="view_res_partner_form_museo_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.museo.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page string="Información de Museo" invisible="'is_trabajador_museo', '=', False">
+                    <group>
+                        <group>
+                            <field name="is_trabajador_museo"/>
+                            <field name="cargo"/>
+                            <field name="especialidad"/>
+                            <field name="fecha_ingreso" widget="date"/>
+                            <field name="horas_semanales"/>
+                        </group>
+                        <group>
+                            <field name="actividad_ids" widget="many2many_tags"/>
+                            <field name="convenio_ids" widget="one2many">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="estado"/>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                </list>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="before">
+                <field name="is_trabajador_museo" widget="boolean_button" options='{"terminology": "trabajador"}'/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de Lista para Trabajadores de Museo -->
+    <record id="view_res_partner_tree_museo" model="ir.ui.view">
+        <field name="name">res.partner.tree.museo</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="is_trabajador_museo" invisible="1"/>
+                <field name="cargo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Filtro para Trabajadores de Museo -->
+    <!-- <record id="view_res_partner_search_museo" model="ir.ui.view">
+        <field name="name">res.partner.search.museo</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='res_partner_search_my_partners']" position="after">
+                <filter string="Trabajadores de Museo" name="trabajadores_museo" domain="[('is_trabajador_museo', '=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <!-- Acción específica para Trabajadores de Museo -->
+    <record id="action_museo_trabajadores" model="ir.actions.act_window">
+        <field name="name">Trabajadores de Museos</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('is_trabajador_museo', '=', True)]</field>
+        <field name="context">{'default_is_trabajador_museo': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay trabajadores de museos registrados.
+            </p>
+            <p>
+                Registre a los trabajadores del museo para asignarlos a actividades y convenios.
+            </p>
+        </field>
+    </record>
+
+    <!-- Vista Kanban para Trabajadores -->
+    <record id="view_res_partner_kanban_museo" model="ir.ui.view">
+        <field name="name">res.partner.kanban.museo</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="cargo"/>
+                <field name="especialidad"/>
+                <field name="image_1920"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('res.partner', 'image_1920', record.id.raw_value)" alt="Avatar" class="oe_kanban_image"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <field name="cargo"/>
+                                </div>
+                                <div>
+                                    <small>
+                                        <field name="especialidad"/>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Datos iniciales de demostración -->
+        <record id="demo_museo_1" model="museo.museo">
+            <field name="name">Museo Nacional de Historia</field>
+            <field name="fecha_creacion">1950-01-15</field>
+            <field name="resenna_historica">
+                <![CDATA[
+                    <p>El Museo Nacional de Historia fue fundado en 1950 con el objetivo de preservar y difundir la historia nacional. 
+                    Cuenta con más de 10,000 objetos históricos y realiza actividades culturales durante todo el año.</p>
+                ]]>
+            </field>
+            <field name="direccion">Av. Principal 123, Centro Histórico</field>
+            <field name="telefono">+1 234 567 8900</field>
+            <field name="email">info@museonacional.edu</field>
+            <field name="website">www.museonacional.edu</field>
+        </record>
+        
+        <record id="demo_museo_2" model="museo.museo">
+            <field name="name">Museo de Arte Contemporáneo</field>
+            <field name="fecha_creacion">1985-03-20</field>
+            <field name="resenna_historica">
+                <![CDATA[
+                    <p>Fundado en 1985, el Museo de Arte Contemporáneo se dedica a la promoción del arte moderno y las expresiones artísticas actuales.</p>
+                ]]>
+            </field>
+            <field name="direccion">Calle Arte 456, Zona Cultural</field>
+            <field name="telefono">+1 234 567 8901</field>
+            <field name="email">contacto@artecontemporaneo.org</field>
+            <field name="website">www.artecontemporaneo.org</field>
+        </record>
+    </data>
+</odoo>

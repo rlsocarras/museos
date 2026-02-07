@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_museo_informe" model="ir.actions.report">
+        <field name="name">Informe Estadístico de Museo</field>
+        <field name="model">museo.informe</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">museos.report_informe_estadistico</field>
+        <field name="print_report_name">'Informe Estadístico - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_museo_informe"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

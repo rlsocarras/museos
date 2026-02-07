@@ -1,0 +1,50 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_museo_museo_admin,museo.museo admin,model_museo_museo,group_museo_admin,1,1,1,1
+access_museo_museo_gestor,museo.museo gestor,model_museo_museo,group_museo_gestor,1,1,1,0
+access_museo_museo_trabajador,museo.museo trabajador,model_museo_museo,group_museo_trabajador,1,0,0,0
+access_museo_museo_visor,museo.museo visor,model_museo_museo,group_museo_visor,1,0,0,0
+
+access_museo_objeto_admin,museo.objeto admin,model_museo_objeto,group_museo_admin,1,1,1,1
+access_museo_objeto_gestor,museo.objeto gestor,model_museo_objeto,group_museo_gestor,1,1,1,0
+access_museo_objeto_trabajador,museo.objeto trabajador,model_museo_objeto,group_museo_trabajador,1,0,0,0
+access_museo_objeto_visor,museo.objeto visor,model_museo_objeto,group_museo_visor,1,0,0,0
+
+access_museo_historia_barrio_admin,museo.historia.barrio admin,model_museo_historia_barrio,group_museo_admin,1,1,1,1
+access_museo_historia_barrio_gestor,museo.historia.barrio gestor,model_museo_historia_barrio,group_museo_gestor,1,1,1,0
+access_museo_historia_barrio_trabajador,museo.historia.barrio trabajador,model_museo_historia_barrio,group_museo_trabajador,1,0,0,0
+access_museo_historia_barrio_visor,museo.historia.barrio visor,model_museo_historia_barrio,group_museo_visor,1,0,0,0
+
+access_museo_convenio_admin,museo.convenio admin,model_museo_convenio,group_museo_admin,1,1,1,1
+access_museo_convenio_gestor,museo.convenio gestor,model_museo_convenio,group_museo_gestor,1,1,1,0
+access_museo_convenio_trabajador,museo.convenio trabajador,model_museo_convenio,group_museo_trabajador,1,0,0,0
+access_museo_convenio_visor,museo.convenio visor,model_museo_convenio,group_museo_visor,1,0,0,0
+
+access_museo_actividad_admin,museo.actividad admin,model_museo_actividad,group_museo_admin,1,1,1,1
+access_museo_actividad_gestor,museo.actividad gestor,model_museo_actividad,group_museo_gestor,1,1,1,0
+access_museo_actividad_trabajador,museo.actividad trabajador,model_museo_actividad,group_museo_trabajador,1,1,1,0
+access_museo_actividad_visor,museo.actividad visor,model_museo_actividad,group_museo_visor,1,0,0,0
+
+access_museo_informe_admin,museo.informe admin,model_museo_informe,group_museo_admin,1,1,1,1
+access_museo_informe_gestor,museo.informe gestor,model_museo_informe,group_museo_gestor,1,1,1,0
+access_museo_informe_trabajador,museo.informe trabajador,model_museo_informe,group_museo_trabajador,1,0,0,0
+access_museo_informe_visor,museo.informe visor,model_museo_informe,group_museo_visor,1,0,0,0
+
+access_registro_asistencia_admin,museo.registro.asistencia admin,model_museo_registro_asistencia,group_museo_admin,1,1,1,1
+access_registro_asistencia_gestor,museo.registro.asistencia gestor,model_museo_registro_asistencia,group_museo_gestor,1,1,1,0
+access_registro_asistencia_trabajador,museo.registro.asistencia trabajador,model_museo_registro_asistencia,group_museo_trabajador,1,0,0,0
+access_registro_asistencia_visor,museo.registro.asistencia visor,model_museo_registro_asistencia,group_museo_visor,1,0,0,0
+
+access_wizard_generar_informe_admin,museo.wizard admin,model_museo_wizard_generar_informe,group_museo_admin,1,1,1,1
+access_wizard_generar_informe_gestor,museo.wizard gestor,model_museo_wizard_generar_informe,group_museo_gestor,1,1,1,0
+access_wizard_generar_informe_trabajador,museo.wizard trabajador,model_museo_wizard_generar_informe,group_museo_trabajador,1,0,0,0
+access_wizard_generar_informe_visor,museo.wizard visor,model_museo_wizard_generar_informe,group_museo_visor,1,0,0,0
+
+access_wizard_opcion_avanzada_admin,museo.wizard.opcion_avanzada admin,model_museo_wizard_opcion_avanzada,group_museo_admin,1,1,1,1
+access_wizard_opcion_avanzada_gestor,museo.wizard.opcion_avanzada gestor,model_museo_wizard_opcion_avanzada,group_museo_gestor,1,1,1,0
+access_wizard_opcion_avanzada_trabajador,museo.wizard.opcion_avanzada trabajador,model_museo_wizard_opcion_avanzada,group_museo_trabajador,1,0,0,0
+access_wizard_opcion_avanzada_visor,museo.wizard.opcion_avanzada visor,model_museo_wizard_opcion_avanzada,group_museo_visor,1,0,0,0
+
+access_museo_museo_galeria_admin,museo.museo.galeria admin,model_museo_museo_galeria,group_museo_admin,1,1,1,1
+access_museo_museo_galeria_gestor,museo.museo.galeria gestor,model_museo_museo_galeria,group_museo_gestor,1,1,1,0
+access_museo_museo_galeria_trabajador,museo.museo.galeria trabajador,model_museo_museo_galeria,group_museo_trabajador,1,0,0,0
+access_museo_museo_galeria_visor,museo.museo.galeria visor,model_museo_museo_galeria,group_museo_visor,1,0,0,0

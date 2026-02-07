@@ -1,0 +1,440 @@
+                    .museo-header {
+                            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+                            color: white;
+                            padding: 80px 0;
+                            margin-bottom: 40px;
+                            position: relative;
+                        }
+                        .museo-header .header-bg {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            z-index: -1;
+                            opacity: 0.3;
+                        }
+                        .museo-stats {
+                            background: #f8f9fa;
+                            border-radius: 10px;
+                            padding: 20px;
+                            margin-bottom: 30px;
+                        }
+                        .museo-card {
+                            border: none;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;
+                            transition: transform 0.3s;
+                        }
+                        .museo-card:hover {
+                            transform: translateY(-5px);
+                        }
+                        .museo-img {
+                            height: 200px;
+                            object-fit: cover;
+                            width: 100%;
+                            border-radius: 5px;
+                        }
+                        .museo-gallery {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                            gap: 15px;
+                            margin-top: 20px;
+                        }
+                        .gallery-item {
+                            position: relative;
+                            overflow: hidden;
+                            border-radius: 5px;
+                        }
+                        .gallery-item img {
+                            width: 100%;
+                            height: 150px;
+                            object-fit: cover;
+                            transition: transform 0.3s;
+                        }
+                        .gallery-item:hover img {
+                            transform: scale(1.1);
+                        }
+                        .badge-primary {
+                            background-color: #007bff;
+                        }
+                        .badge-success {
+                            background-color: #28a745;
+                        }
+                        .badge-warning {
+                            background-color: #ffc107;
+                        }
+                        .badge-info {
+                            background-color: #17a2b8;
+                        }
+                        .actividad-calendar {
+                            background: #e9ecef;
+                            padding: 15px;
+                            border-radius: 5px;
+                            margin-bottom: 15px;
+                        }
+                        .objeto-card img {
+                            height: 150px;
+                            object-fit: cover;
+                        }
+                        .info-box {
+                            background: white;
+                            padding: 20px;
+                            border-radius: 5px;
+                            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;
+                        }
+
+                        .museo-header {
+                        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+                        color: white;
+                        padding: 80px 0;
+                        margin-bottom: 40px;
+                        position: relative;
+                    }
+                    .museo-header .header-bg {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        z-index: -1;
+                        opacity: 0.3;
+                    }
+                    .museo-stats {
+                        background: #f8f9fa;
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin-bottom: 30px;
+                    }
+                    .museo-card {
+                        border: none;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        margin-bottom: 20px;
+                        transition: transform 0.3s;
+                    }
+                    .museo-card:hover {
+                        transform: translateY(-5px);
+                    }
+                    .museo-img {
+                        height: 200px;
+                        object-fit: cover;
+                        width: 100%;
+                        border-radius: 5px;
+                    }
+                    
+                    /* Galería simple */
+                    .museo-gallery {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                        gap: 15px;
+                        margin-top: 20px;
+                    }
+                    .gallery-item {
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                    .gallery-item img {
+                        width: 100%;
+                        height: 150px;
+                        object-fit: cover;
+                        transition: transform 0.3s;
+                    }
+                    .gallery-item:hover img {
+                        transform: scale(1.05);
+                    }
+                    
+                    /* Modal para imágenes ampliadas */
+                    .image-modal {
+                        display: none;
+                        position: fixed;
+                        z-index: 1000;
+                        padding-top: 100px;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: auto;
+                        background-color: rgba(0,0,0,0.9);
+                    }
+                    .image-modal-content {
+                        margin: auto;
+                        display: block;
+                        max-width: 80%;
+                        max-height: 80%;
+                    }
+                    .image-modal-caption {
+                        margin: auto;
+                        display: block;
+                        width: 80%;
+                        max-width: 700px;
+                        text-align: center;
+                        color: #ccc;
+                        padding: 10px 0;
+                        height: 150px;
+                    }
+                    .close-modal {
+                        position: absolute;
+                        top: 15px;
+                        right: 35px;
+                        color: #f1f1f1;
+                        font-size: 40px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+                    .close-modal:hover {
+                        color: #bbb;
+                    }
+                    
+                    /* Estilos para pestañas Bootstrap 5 */
+                    .nav-tabs .nav-link {
+                        border: 1px solid transparent;
+                        border-top-left-radius: 0.25rem;
+                        border-top-right-radius: 0.25rem;
+                        color: #495057;
+                        padding: 0.5rem 1rem;
+                    }
+                    .nav-tabs .nav-link:hover {
+                        border-color: #e9ecef #e9ecef #dee2e6;
+                    }
+                    .nav-tabs .nav-link.active {
+                        color: #495057;
+                        background-color: #fff;
+                        border-color: #dee2e6 #dee2e6 #fff;
+                    }
+                    .tab-content > .tab-pane {
+                        display: none;
+                    }
+                    .tab-content > .active {
+                        display: block;
+                    }
+                    
+                    .badge-primary {
+                        background-color: #007bff;
+                    }
+                    .badge-success {
+                        background-color: #28a745;
+                    }
+                    .badge-warning {
+                        background-color: #ffc107;
+                    }
+                    .badge-info {
+                        background-color: #17a2b8;
+                    }
+                    .actividad-calendar {
+                        background: #e9ecef;
+                        padding: 15px;
+                        border-radius: 5px;
+                        margin-bottom: 15px;
+                    }
+                    .objeto-card img {
+                        height: 150px;
+                        object-fit: cover;
+                    }
+                    .info-box {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                        margin-bottom: 20px;
+                    }
+
+                    /* Estilos adicionales para pestañas */
+                        .nav-tabs .nav-link {
+                            cursor: pointer;
+                        }
+                        .tab-content > .tab-pane {
+                            display: none;
+                        }
+                        .tab-content > .active {
+                            display: block;
+                        }
+                        .fade {
+                            transition: opacity .15s linear;
+                        }
+                        .fade:not(.show) {
+                            opacity: 0;
+                        }
+                        .fade.show {
+                            opacity: 1;
+                        }
+                        
+                        /* Carrusel personalizado */
+                        .museo-carousel {
+                            position: relative;
+                            max-width: 100%;
+                            margin: 30px auto;
+                            overflow: hidden;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                        }
+                        .carousel-container {
+                            display: flex;
+                            transition: transform 0.5s ease;
+                        }
+                        .carousel-slide {
+                            min-width: 100%;
+                            position: relative;
+                        }
+                        .carousel-slide img {
+                            width: 100%;
+                            height: 400px;
+                            object-fit: cover;
+                        }
+                        .carousel-caption {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+                            color: white;
+                            padding: 20px;
+                        }
+                        .carousel-caption h5 {
+                            margin-bottom: 5px;
+                        }
+                        .carousel-control {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            background: rgba(0,0,0,0.5);
+                            color: white;
+                            border: none;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            z-index: 10;
+                        }
+                        .carousel-control:hover {
+                            background: rgba(0,0,0,0.8);
+                        }
+                        .carousel-control.prev {
+                            left: 15px;
+                        }
+                        .carousel-control.next {
+                            right: 15px;
+                        }
+                        .carousel-indicators {
+                            position: absolute;
+                            bottom: 20px;
+                            left: 0;
+                            right: 0;
+                            display: flex;
+                            justify-content: center;
+                            gap: 8px;
+                            z-index: 10;
+                        }
+                        .carousel-indicator {
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            background: rgba(255,255,255,0.5);
+                            cursor: pointer;
+                            border: none;
+                            padding: 0;
+                        }
+                        .carousel-indicator.active {
+                            background: white;
+                        }
+                        
+                        /* Slider de trabajadores */
+                        .trabajadores-section {
+                            background: #f8f9fa;
+                            padding: 60px 0;
+                            margin-top: 50px;
+                        }
+                        .trabajadores-slider {
+                            position: relative;
+                            max-width: 100%;
+                            overflow: hidden;
+                        }
+                        .trabajadores-container {
+                            display: flex;
+                            gap: 20px;
+                            transition: transform 0.5s ease;
+                            padding: 10px;
+                        }
+                        .trabajador-card {
+                            min-width: 280px;
+                            background: white;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                            transition: transform 0.3s;
+                        }
+                        .trabajador-card:hover {
+                            transform: translateY(-5px);
+                        }
+                        .trabajador-img {
+                            width: 100%;
+                            height: 200px;
+                            object-fit: cover;
+                        }
+                        .trabajador-info {
+                            padding: 20px;
+                        }
+                        .trabajador-info h5 {
+                            margin-bottom: 5px;
+                            color: #333;
+                        }
+                        .trabajador-cargo {
+                            color: #666;
+                            font-size: 0.9em;
+                            margin-bottom: 10px;
+                        }
+                        .trabajador-especialidad {
+                            font-size: 0.85em;
+                            color: #888;
+                            margin-bottom: 15px;
+                        }
+                        .slider-control {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            background: white;
+                            border: 2px solid #007bff;
+                            color: #007bff;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            z-index: 10;
+                            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                        }
+                        .slider-control:hover {
+                            background: #007bff;
+                            color: white;
+                        }
+                        .slider-control.prev {
+                            left: -20px;
+                        }
+                        .slider-control.next {
+                            right: -20px;
+                        }
+                        
+                        /* Responsive */
+                        @media (max-width: 768px) {
+                            .carousel-slide img {
+                                height: 300px;
+                            }
+                            .trabajador-card {
+                                min-width: 250px;
+                            }
+                            .slider-control.prev {
+                                left: 10px;
+                            }
+                            .slider-control.next {
+                                right: 10px;
+                            }
+                        }

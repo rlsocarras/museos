@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard Principal de Museos -->
+    <record id="view_museo_dashboard" model="ir.ui.view">
+        <field name="name">museo.dashboard</field>
+        <field name="model">museo.museo</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard de Museos">
+                <header>
+                    <button name="action_view_objetos" type="object" string="Ver Objetos" class="btn-primary"/>
+                    <button name="action_view_actividades" type="object" string="Ver Actividades" class="btn-secondary"/>
+                    <button name="action_view_informes" type="object" string="Ver Informes" class="btn-secondary"/>
+                    <button name="action_ver_pagina_web" type="object" string="Ver Página Web"  class="btn-success" groups="base.group_user"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/> - Dashboard
+                        </h1>
+                    </div>
+                    
+                    <!-- Primera fila: KPIs principales -->
+                    <div class="row mt-4">
+                        <div class="col-3 text-center">
+                            <div class="oe_button_box">
+                                <button type="object" name="action_view_objetos" class="oe_stat_button" icon="fa-book">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="total_objetos" widget="integer"/>
+                                        </span>
+                                        <span class="o_stat_text">Objetos</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div class="oe_button_box">
+                                <button type="object" name="action_view_actividades" class="oe_stat_button" icon="fa-calendar">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="total_actividades" widget="integer"/>
+                                        </span>
+                                        <span class="o_stat_text">Actividades</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div class="oe_button_box">
+                                <button type="object" name="action_view_convenios" class="oe_stat_button" icon="fa-handshake-o">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="total_convenios" widget="integer"/>
+                                        </span>
+                                        <span class="o_stat_text">Convenios</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div class="oe_button_box">
+                                <button type="object" name="action_view_informes" class="oe_stat_button" icon="fa-file-text">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="informes_publicados" widget="integer"/>
+                                        </span>
+                                        <span class="o_stat_text">Informes Publicados</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Segunda fila: Gráficos -->
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Actividades por Tipo</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <!-- Usar vista de gráfico embebida -->
+                                    <button type="action" name="%(action_museo_actividad)d" 
+                                            context="{'search_default_museo_id': id}"
+                                            string="Ver Gráfico de Actividades" class="btn btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Estado de Convenios</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <button type="action" name="%(action_museo_convenio)d" 
+                                            context="{'search_default_museo_id': id}"
+                                            string="Ver Gráfico de Convenios" class="btn btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tercera fila: Listados rápidos -->
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Próximas Actividades</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <field name="actividad_ids" widget="one2many_list" 
+                                           domain="[('museo_id', '=', id), ('estado', 'in', ['planificada', 'confirmada']), ('fecha_inicio', '>=', context_today())]" 
+                                           limit="5">
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="fecha_inicio"/>
+                                            <field name="tipo_actividad"/>
+                                            <field name="estado"/>
+                                        </list>
+                                    </field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Convenios por Vencer (30 días)</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <field name="convenio_ids" widget="one2many_list" 
+                                           domain="[('museo_id', '=', id), ('estado', '=', 'vigente'), ('fecha_fin', '!=', False), ('fecha_fin', '&lt;=', context_today() + 30)]" 
+                                           limit="5">
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="partner_id"/>
+                                            <field name="fecha_fin"/>
+                                            <field name="dias_para_vencer"/>
+                                        </list>
+                                    </field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cuarta fila: Informes recientes -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Informes Recientes</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <field name="informe_ids" widget="one2many_list" 
+                                           domain="[('museo_id', '=', id)]" 
+                                           limit="5">
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="periodo"/>
+                                            <field name="fecha_generacion"/>
+                                            <field name="estado"/>
+                                            <field name="total_actividades"/>
+                                        </list>
+                                    </field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción del Dashboard -->
+    <record id="action_museo_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard de Museos</field>
+        <field name="res_model">museo.museo</field>
+        <field name="view_mode">form,kanban</field>
+        <field name="view_id" ref="view_museo_dashboard"/>
+        <field name="target">current</field>
+    </record>
+</odoo>

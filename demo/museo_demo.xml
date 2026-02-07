@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Datos de prueba para Museos -->
+        
+        <!-- 1. Compañías -->
+        <record id="demo_company_museos" model="res.company">
+            <field name="name">Ministerio de Cultura y Patrimonio</field>
+            <field name="email">cultura@museosdemo.com</field>
+            <field name="phone">+593 2 1234567</field>
+        </record>
+        
+        <!-- 2. Trabajadores del Museo (Partners) -->
+        <record id="demo_partner_trabajador_1" model="res.partner">
+            <field name="name">Dr. Carlos Méndez</field>
+            <field name="email">carlos.mendez@museosdemo.com</field>
+            <field name="phone">+593 99 123 4567</field>
+            <field name="is_trabajador_museo">True</field>
+            <field name="cargo">Director del Museo</field>
+            <field name="especialidad">Historia del Arte</field>
+            <field name="fecha_ingreso">2020-03-15</field>
+            <field name="horas_semanales">40</field>
+            <field name="image_1920" type="base64" file="museos/static/img/trabajador1.jpg" />
+        </record>
+        
+        <record id="demo_partner_trabajador_2" model="res.partner">
+            <field name="name">Lic. Ana Torres</field>
+            <field name="email">ana.torres@museosdemo.com</field>
+            <field name="phone">+593 99 234 5678</field>
+            <field name="is_trabajador_museo">True</field>
+            <field name="cargo">Curadora Principal</field>
+            <field name="especialidad">Arqueología</field>
+            <field name="fecha_ingreso">2021-06-10</field>
+            <field name="horas_semanales">35</field>
+            <field name="image_1920" type="base64" file="museos/static/img/trabajador2.jpg" />
+        </record>
+        
+        <record id="demo_partner_trabajador_3" model="res.partner">
+            <field name="name">Mtro. Roberto Sánchez</field>
+            <field name="email">roberto.sanchez@museosdemo.com</field>
+            <field name="phone">+593 99 345 6789</field>
+            <field name="is_trabajador_museo">True</field>
+            <field name="cargo">Educador Museístico</field>
+            <field name="especialidad">Pedagogía Museal</field>
+            <field name="fecha_ingreso">2022-01-20</field>
+            <field name="horas_semanales">30</field>
+            <field name="image_1920" type="base64" file="museos/static/img/trabajador3.jpg" />
+        </record>
+        
+        <!-- 3. Museos -->
+        <record id="demo_museo_1" model="museo.museo">
+            <field name="name">Museo Nacional de Historia</field>
+            <field name="company_id" ref="demo_company_museos"/>
+            <field name="fecha_creacion">1950-07-12</field>
+            <field name="resenna_historica">
+                <![CDATA[
+                <p>El Museo Nacional de Historia fue fundado en 1950 con el objetivo de preservar y difundir el patrimonio histórico de la nación. Ubicado en un edificio neoclásico del siglo XIX, el museo alberga más de 50,000 piezas que abarcan desde la época precolombina hasta la contemporaneidad.</p>
+                <p>Desde su creación, el museo ha sido un referente cultural, recibiendo más de 500,000 visitantes anuales. En 1998 fue declarado Patrimonio Cultural de la Nación por su valor arquitectónico y coleccionístico.</p>
+                <p>Actualmente, desarrolla programas educativos para todas las edades y mantiene convenios de cooperación con instituciones internacionales.</p>
+                ]]>
+            </field>
+            <field name="direccion">Av. Patria 1234, Centro Histórico, Quito, Ecuador</field>
+            <field name="telefono">+593 2 222-1234</field>
+            <field name="email">info@museonacionaldemo.org</field>
+            <field name="website">https://www.museonacionaldemo.org</field>
+            <field name="imagen_principal" type="base64" file="museos/static/img/museo1.jpg" />
+            <field name="active">True</field>
+        </record>
+        
+        <record id="demo_museo_2" model="museo.museo">
+            <field name="name">Museo de Arte Contemporáneo</field>
+            <field name="company_id" ref="demo_company_museos"/>
+            <field name="fecha_creacion">1985-11-30</field>
+            <field name="resenna_historica">
+                <![CDATA[
+                <p>Inaugurado en 1985, el Museo de Arte Contemporáneo se ha convertido en el epicentro de la vanguardia artística nacional. Su arquitectura moderna, diseñada por el renombrado arquitecto Luis Fernández, es en sí misma una obra de arte.</p>
+                <p>El museo cuenta con 15 salas de exposición permanente y 3 salas temporales, donde se exhiben obras de artistas nacionales e internacionales contemporáneos. Su colección incluye más de 2,000 obras de pintura, escultura, fotografía y arte digital.</p>
+                <p>Además de las exposiciones, el museo organiza talleres, conferencias y residencias artísticas, siendo un espacio dinámico de creación y reflexión.</p>
+                ]]>
+            </field>
+            <field name="direccion">Calle Arte 567, Distrito Cultural, Guayaquil, Ecuador</field>
+            <field name="telefono">+593 4 333-5678</field>
+            <field name="email">contacto@museocontemporaneo.org</field>
+            <field name="website">https://www.museocontemporaneo.org</field>
+            <field name="imagen_principal" type="base64" file="museos/static/img/museo2.jpg" />
+            <field name="active">True</field>
+        </record>
+        
+        <!-- 4. Objetos del Museo 1 -->
+        <record id="demo_objeto_1" model="museo.objeto">
+            <field name="name">Estatuilla Venus de Valdivia</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="codigo_inventario">MNH-001-1950</field>
+            <field name="historia">
+                <![CDATA[
+                <p>Estatuilla cerámica perteneciente a la cultura Valdivia (3500-1800 a.C.), considerada una de las más antiguas representaciones femeninas de América. Fue descubierta en 1948 durante excavaciones arqueológicas en la costa ecuatoriana.</p>
+                <p>La pieza muestra características típicas de la iconografía Valdivia: forma fálica, decoración incisa y pequeños senos. Representa la fertilidad y fue probablemente utilizada en rituales agrícolas.</p>
+                <p>Esta estatuilla es fundamental para entender las creencias y organización social de las primeras sociedades complejas del litoral pacífico.</p>
+                ]]>
+            </field>
+            <field name="fecha_adquisicion">1950-08-15</field>
+            <field name="estado_conservacion">bueno</field>
+            <field name="categoria">arqueologico</field>
+            <field name="ubicacion_actual">Sala 1 - Culturas Precolombinas</field>
+            <field name="valor_estimado">150000.00</field>
+            <field name="imagen" type="base64" file="museos/static/img/objeto1.jpg" />
+            <field name="observaciones">Requiere control de humedad constante</field>
+        </record>
+        
+        <record id="demo_objeto_2" model="museo.objeto">
+            <field name="name">Espada del Libertador</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="codigo_inventario">MNH-002-1822</field>
+            <field name="historia">
+                <![CDATA[
+                <p>Espada de acero damasquinado perteneciente al Libertador Simón Bolívar, utilizada durante la Campaña del Sur (1822-1825). Fue donada al museo en 1923 por descendientes del Mariscal Antonio José de Sucre.</p>
+                <p>La empuñadura de plata tiene grabado el escudo de la Gran Colombia y las iniciales "SB". La hoja muestra desgaste de combate y fue restaurada en 1995 por expertos del Instituto Nacional de Patrimonio.</p>
+                <p>Esta espada simboliza la lucha independentista y es una de las piezas más valiosas de la colección de historia republicana.</p>
+                ]]>
+            </field>
+            <field name="fecha_adquisicion">1923-05-24</field>
+            <field name="estado_conservacion">excelente</field>
+            <field name="categoria">historico</field>
+            <field name="ubicacion_actual">Sala 3 - Independencia y República</field>
+            <field name="valor_estimado">850000.00</field>
+            <field name="imagen" type="base64" file="museos/static/img/objeto2.jpg" />
+            <field name="observaciones">Exhibición permanente con sistema de seguridad nivel 3</field>
+        </record>
+        
+        <!-- 5. Objetos del Museo 2 -->
+        <record id="demo_objeto_3" model="museo.objeto">
+            <field name="name">"Geometría del Tiempo" - Óleo sobre lienzo</field>
+            <field name="museo_id" ref="demo_museo_2"/>
+            <field name="codigo_inventario">MAC-001-2005</field>
+            <field name="historia">
+                <![CDATA[
+                <p>Obra del reconocido artista ecuatoriano contemporáneo Pedro Guerrero, pintada en 2005. Forma parte de su serie "Abstracciones Temporales" donde explora la relación entre tiempo, espacio y memoria.</p>
+                <p>La técnica mixta incluye óleo, acrílico y collage de periódicos históricos. Las dimensiones (200x300 cm) crean un impacto visual que envuelve al espectador.</p>
+                <p>Adquirida directamente del artista en 2006, esta obra ha sido expuesta en bienales internacionales de arte contemporáneo en Sao Paulo, Venecia y Shanghai.</p>
+                ]]>
+            </field>
+            <field name="fecha_adquisicion">2006-03-10</field>
+            <field name="estado_conservacion">excelente</field>
+            <field name="categoria">artistico</field>
+            <field name="ubicacion_actual">Sala Principal - Arte Abstracto</field>
+            <field name="valor_estimado">120000.00</field>
+            <field name="imagen" type="base64" file="museos/static/img/objeto3.jpg" />
+            <field name="observaciones">Requiere iluminación controlada LED específica</field>
+        </record>
+        
+        <!-- 6. Galería de Fotos del Museo 1 -->
+        <record id="demo_galeria_1" model="museo.museo.galeria">
+            <field name="name">Fachada Principal del Museo</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="imagen" type="base64" file="museos/static/img/galeria1.jpg" />
+            <field name="descripcion">Vista frontal del edificio histórico, arquitectura neoclásica del siglo XIX</field>
+            <field name="fecha_captura">2023-05-15</field>
+            <field name="autor">Fotógrafo: Juan Pérez</field>
+            <field name="categoria">exterior</field>
+            <field name="es_imagen_principal">True</field>
+            <field name="sequence">10</field>
+        </record>
+        
+        <record id="demo_galeria_2" model="museo.museo.galeria">
+            <field name="name">Sala de Exposiciones Permanentes</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="imagen" type="base64" file="museos/static/img/galeria2.jpg" />
+            <field name="descripcion">Interior de la sala principal con iluminación museográfica profesional</field>
+            <field name="fecha_captura">2023-06-20</field>
+            <field name="autor">Fotógrafo: María González</field>
+            <field name="categoria">interior</field>
+            <field name="sequence">20</field>
+        </record>
+        
+        <record id="demo_galeria_3" model="museo.museo.galeria">
+            <field name="name">Actividad Educativa para Niños</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="imagen" type="base64" file="museos/static/img/galeria3.jpg" />
+            <field name="descripcion">Taller de arqueología para estudiantes de primaria</field>
+            <field name="fecha_captura">2023-08-10</field>
+            <field name="autor">Fotógrafo: Carlos Rodríguez</field>
+            <field name="categoria">actividades</field>
+            <field name="sequence">30</field>
+        </record>
+        
+        <!-- 7. Actividades -->
+        <record id="demo_actividad_1" model="museo.actividad">
+            <field name="name">Taller de Cerámica Precolombina</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="fecha_inicio">2024-03-15 10:00:00</field>
+            <field name="fecha_fin">2024-03-15 13:00:00</field>
+            <field name="tipo_actividad">taller</field>
+            <field name="descripcion">
+                <![CDATA[
+                <p>Taller práctico donde los participantes aprenderán técnicas de cerámica utilizadas por las culturas precolombinas. Incluye:</p>
+                <ul>
+                    <li>Introducción histórica a la cerámica Valdivia y Chorrera</li>
+                    <li>Técnicas de modelado manual</li>
+                    <li>Decoración con engobes naturales</li>
+                    <li>Quemado en horno a baja temperatura</li>
+                </ul>
+                <p>Materiales incluidos. Para mayores de 12 años.</p>
+                ]]>
+            </field>
+            <field name="costo">25.00</field>
+            <field name="capacidad_maxima">20</field>
+            <field name="estado">confirmada</field>
+            <field name="sala">Taller de Educación - Planta Baja</field>
+            <field name="publico_objetivo">general</field>
+            <field name="trabajadores_ids" eval="[(6, 0, [ref('demo_partner_trabajador_2'), ref('demo_partner_trabajador_3')])]"/>
+        </record>
+        
+        <record id="demo_actividad_2" model="museo.actividad">
+            <field name="name">Conferencia: "Arte y Tecnología en el Siglo XXI"</field>
+            <field name="museo_id" ref="demo_museo_2"/>
+            <field name="fecha_inicio">2024-03-20 18:00:00</field>
+            <field name="fecha_fin">2024-03-20 20:30:00</field>
+            <field name="tipo_actividad">conferencia</field>
+            <field name="descripcion">
+                <![CDATA[
+                <p>Conferencia magistral a cargo del reconocido artista digital internacional, Dr. Miguel Ángel Ramírez. Temas a tratar:</p>
+                <ul>
+                    <li>Inteligencia artificial en la creación artística</li>
+                    <li>Realidad virtual y aumentada como medio expresivo</li>
+                    <li>NFTs y blockchain en el mercado del arte</li>
+                    <li>El futuro de los museos en la era digital</li>
+                </ul>
+                <p>Seguido de ronda de preguntas y networking.</p>
+                ]]>
+            </field>
+            <field name="costo">0.00</field>
+            <field name="capacidad_maxima">150</field>
+            <field name="estado">planificada</field>
+            <field name="sala">Auditorio Principal</field>
+            <field name="publico_objetivo">universitario</field>
+            <field name="trabajadores_ids" eval="[(6, 0, [ref('demo_partner_trabajador_1')])]"/>
+        </record>
+        
+        <!-- 8. Convenios -->
+        <record id="demo_convenio_1" model="museo.convenio">
+            <field name="name">Convenio de Cooperación Académica con Universidad Central</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="partner_id" ref="base.res_partner_1"/>
+            <field name="fecha_inicio">2023-01-15</field>
+            <field name="fecha_fin">2025-12-31</field>
+            <field name="tipo_convenio">educacion</field>
+            <field name="descripcion">
+                <![CDATA[
+                <p>Convenio para el desarrollo conjunto de programas académicos, investigaciones y prácticas pre-profesionales en el área de museología y patrimonio cultural.</p>
+                <p>Objetivos específicos:</p>
+                <ul>
+                    <li>Desarrollo de pasantías para estudiantes de Historia y Arqueología</li>
+                    <li>Investigación conjunta en conservación preventiva</li>
+                    <li>Publicaciones científicas colaborativas</li>
+                    <li>Organización de simposios anuales</li>
+                </ul>
+                ]]>
+            </field>
+            <field name="estado">vigente</field>
+            <field name="monto">50000.00</field>
+            <field name="responsable_museo" ref="demo_partner_trabajador_1"/>
+        </record>
+        
+        <!-- 9. Historias de Barrios -->
+        <record id="demo_historia_1" model="museo.historia.barrio">
+            <field name="name">"La Loma Grande": Memoria de un Barrio Obrero</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="contenido_historico">
+                <![CDATA[
+                <p>La Loma Grande fue fundada en 1928 como un barrio obrero para trabajadores de la industria textil. Su arquitectura característica de casas de madera con techos de zinc refleja las condiciones de vida de la clase trabajadora de principios del siglo XX.</p>
+                <p>Testimonios recopilados:</p>
+                <blockquote>"Mi abuelo llegó aquí en 1930 para trabajar en la fábrica textil. Las casas se construían entre vecinos en mingas comunitarias" - Doña Rosa, 85 años.</blockquote>
+                <blockquote>"En los años 50, éramos como una gran familia. Las fiestas patronales reunían a todo el barrio" - Don Manuel, 78 años.</blockquote>
+                <p>El barrio fue declarado Zona de Interés Histórico en 2005 y actualmente se desarrolla un proyecto de revitalización patrimonial.</p>
+                ]]>
+            </field>
+            <field name="fecha_registro">2023-09-15</field>
+            <field name="barrio">La Loma Grande</field>
+            <field name="ciudad">Quito</field>
+            <field name="fuente">mixta</field>
+            <field name="estado_investigacion">avanzada</field>
+            <field name="investigador_responsable">Lic. Ana Torres</field>
+        </record>
+        
+        <!-- 10. Informes -->
+        <record id="demo_informe_1" model="museo.informe">
+            <field name="name">Informe Mensual - Enero 2024 - Museo Nacional de Historia</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="periodo">mensual</field>
+            <field name="fecha_inicio">2024-01-01</field>
+            <field name="fecha_fin">2024-01-31</field>
+            <field name="estado">publicado</field>
+            <field name="observaciones">Mes con alta afluencia debido a vacaciones escolares</field>
+        </record>
+        
+        <!-- 11. Registros de Asistencia -->
+        <record id="demo_registro_1" model="museo.registro.asistencia">
+            <field name="actividad_id" ref="demo_actividad_1"/>
+            <field name="fecha">2024-02-10</field>
+            <field name="asistentes">18</field>
+            <field name="grupo_edad">mixto</field>
+            <field name="origen">local</field>
+            <field name="satisfaccion">4.5</field>
+            <field name="comentarios">Excelente taller, los participantes quedaron muy satisfechos con la experiencia práctica</field>
+        </record>
+        
+        <!-- 12. Institución asociada para convenios -->
+        <record id="demo_partner_universidad" model="res.partner">
+            <field name="name">Universidad Central del Ecuador</field>
+            <field name="is_company">True</field>
+            <field name="email">rectorado@uce.edu.ec</field>
+            <field name="phone">+593 2 222-2222</field>
+            <field name="street">Av. Universitaria</field>
+            <field name="city">Quito</field>
+            <field name="country_id" ref="base.ec"/>
+        </record>
+        
+        <!-- Actualizar convenio con partner real -->
+        <record id="demo_convenio_1" model="museo.convenio">
+            <field name="partner_id" ref="demo_partner_universidad"/>
+        </record>
+        
+    </data>
+</odoo>

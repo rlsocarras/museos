@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Datos de prueba para Museos -->
+        
+        <!-- NO crear compañía - usar la existente -->
+        <!-- <record id="demo_company_museos" model="res.company"> -->
+        
+        <!-- 2. Trabajadores del Museo (Partners) -->
+        <record id="demo_partner_trabajador_1" model="res.partner">
+            <field name="name">Dr. Carlos Méndez</field>
+            <field name="email">carlos.mendez@museosdemo.com</field>
+            <field name="phone">+593 99 123 4567</field>
+            <field name="is_trabajador_museo">True</field>
+            <field name="cargo">Director del Museo</field>
+            <field name="especialidad">Historia del Arte</field>
+            <field name="fecha_ingreso">2020-03-15</field>
+            <field name="horas_semanales">40</field>
+        </record>
+        
+        <record id="demo_partner_trabajador_2" model="res.partner">
+            <field name="name">Lic. Ana Torres</field>
+            <field name="email">ana.torres@museosdemo.com</field>
+            <field name="phone">+593 99 234 5678</field>
+            <field name="is_trabajador_museo">True</field>
+            <field name="cargo">Curadora Principal</field>
+            <field name="especialidad">Arqueología</field>
+            <field name="fecha_ingreso">2021-06-10</field>
+            <field name="horas_semanales">35</field>
+        </record>
+        
+        <record id="demo_partner_trabajador_3" model="res.partner">
+            <field name="name">Mtro. Roberto Sánchez</field>
+            <field name="email">roberto.sanchez@museosdemo.com</field>
+            <field name="phone">+593 99 345 6789</field>
+            <field name="is_trabajador_museo">True</field>
+            <field name="cargo">Educador Museístico</field>
+            <field name="especialidad">Pedagogía Museal</field>
+            <field name="fecha_ingreso">2022-01-20</field>
+            <field name="horas_semanales">30</field>
+        </record>
+        
+        <!-- 3. Museos -->
+        <record id="demo_museo_1" model="museo.museo">
+            <field name="name">Museo Nacional de Historia</field>
+            <!-- Sin company_id o con valor por defecto -->
+            <field name="company_id" eval="1"/>
+            <field name="fecha_creacion">1950-07-12</field>
+            <field name="resenna_historica">
+                <![CDATA[
+                <p>El Museo Nacional de Historia fue fundado en 1950 con el objetivo de preservar y difundir el patrimonio histórico de la nación. Ubicado en un edificio neoclásico del siglo XIX, el museo alberga más de 50,000 piezas que abarcan desde la época precolombina hasta la contemporaneidad.</p>
+                <p>Desde su creación, el museo ha sido un referente cultural, recibiendo más de 500,000 visitantes anuales. En 1998 fue declarado Patrimonio Cultural de la Nación por su valor arquitectónico y coleccionístico.</p>
+                <p>Actualmente, desarrolla programas educativos para todas las edades y mantiene convenios de cooperación con instituciones internacionales.</p>
+                ]]>
+            </field>
+            <field name="direccion">Av. Patria 1234, Centro Histórico, Quito, Ecuador</field>
+            <field name="telefono">+593 2 222-1234</field>
+            <field name="email">info@museonacionaldemo.org</field>
+            <field name="website">https://www.museonacionaldemo.org</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="demo_museo_2" model="museo.museo">
+            <field name="name">Museo de Arte Contemporáneo</field>
+            <field name="company_id" eval="1"/>
+            <field name="fecha_creacion">1985-11-30</field>
+            <field name="resenna_historica">
+                <![CDATA[
+                <p>Inaugurado en 1985, el Museo de Arte Contemporáneo se ha convertido en el epicentro de la vanguardia artística nacional. Su arquitectura moderna, diseñada por el renombrado arquitecto Luis Fernández, es en sí misma una obra de arte.</p>
+                <p>El museo cuenta con 15 salas de exposición permanente y 3 salas temporales, donde se exhiben obras de artistas nacionales e internacionales contemporáneos. Su colección incluye más de 2,000 obras de pintura, escultura, fotografía y arte digital.</p>
+                <p>Además de las exposiciones, el museo organiza talleres, conferencias y residencias artísticas, siendo un espacio dinámico de creación y reflexión.</p>
+                ]]>
+            </field>
+            <field name="direccion">Calle Arte 567, Distrito Cultural, Guayaquil, Ecuador</field>
+            <field name="telefono">+593 4 333-5678</field>
+            <field name="email">contacto@museocontemporaneo.org</field>
+            <field name="website">https://www.museocontemporaneo.org</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- 4. Objetos del Museo 1 -->
+        <record id="demo_objeto_1" model="museo.objeto">
+            <field name="name">Estatuilla Venus de Valdivia</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="codigo_inventario">MNH-001-1950</field>
+            <field name="historia">
+                <![CDATA[
+                <p>Estatuilla cerámica perteneciente a la cultura Valdivia (3500-1800 a.C.), considerada una de las más antiguas representaciones femeninas de América. Fue descubierta en 1948 durante excavaciones arqueológicas en la costa ecuatoriana.</p>
+                <p>La pieza muestra características típicas de la iconografía Valdivia: forma fálica, decoración incisa y pequeños senos. Representa la fertilidad y fue probablemente utilizada en rituales agrícolas.</p>
+                <p>Esta estatuilla es fundamental para entender las creencias y organización social de las primeras sociedades complejas del litoral pacífico.</p>
+                ]]>
+            </field>
+            <field name="fecha_adquisicion">1950-08-15</field>
+            <field name="estado_conservacion">bueno</field>
+            <field name="categoria">arqueologico</field>
+            <field name="ubicacion_actual">Sala 1 - Culturas Precolombinas</field>
+            <field name="valor_estimado">150000.00</field>
+        </record>
+        
+        <!-- 5. Actividades -->
+        <record id="demo_actividad_1" model="museo.actividad">
+            <field name="name">Taller de Cerámica Precolombina</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="fecha_inicio">2024-03-15 10:00:00</field>
+            <field name="fecha_fin">2024-03-15 13:00:00</field>
+            <field name="tipo_actividad">taller</field>
+            <field name="descripcion">
+                Taller práctico donde los participantes aprenderán técnicas de cerámica utilizadas por las culturas precolombinas.
+            </field>
+            <field name="costo">25.00</field>
+            <field name="capacidad_maxima">20</field>
+            <field name="estado">confirmada</field>
+            <field name="sala">Taller de Educación - Planta Baja</field>
+            <field name="publico_objetivo">general</field>
+            <field name="trabajadores_ids" eval="[(6, 0, [ref('demo_partner_trabajador_2'), ref('demo_partner_trabajador_3')])]"/>
+        </record>
+        
+        <!-- 6. Convenios -->
+        <record id="demo_convenio_1" model="museo.convenio">
+            <field name="name">Convenio de Cooperación Académica</field>
+            <field name="museo_id" ref="demo_museo_1"/>
+            <field name="fecha_inicio">2023-01-15</field>
+            <field name="fecha_fin">2025-12-31</field>
+            <field name="tipo_convenio">educacion</field>
+            <field name="descripcion">
+                Convenio para el desarrollo conjunto de programas académicos y prácticas pre-profesionales.
+            </field>
+            <field name="estado">vigente</field>
+            <field name="monto">50000.00</field>
+            <field name="responsable_museo" ref="demo_partner_trabajador_1"/>
+        </record>
+        
+    </data>
+</odoo>

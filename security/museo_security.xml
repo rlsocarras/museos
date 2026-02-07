@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Grupos de seguridad -->
+        <record id="group_museo_admin" model="res.groups">
+            <field name="name">Administrador de Museos</field>
+            <field name="category_id" ref="base.module_category_services_museums"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <record id="group_museo_gestor" model="res.groups">
+            <field name="name">Gestor de Museo</field>
+            <field name="category_id" ref="base.module_category_services_museums"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <record id="group_museo_trabajador" model="res.groups">
+            <field name="name">Trabajador de Museo</field>
+            <field name="category_id" ref="base.module_category_services_museums"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <record id="group_museo_visor" model="res.groups">
+            <field name="name">Visor de Museos</field>
+            <field name="category_id" ref="base.module_category_services_museums"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+</odoo>

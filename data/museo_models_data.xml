@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Definición de modelos para referencias -->
+    <record id="model_museo_museo" model="ir.model">
+        <field name="name">Museo</field>
+        <field name="model">museo.museo</field>
+        <field name="info">Gestión de Museos</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_objeto" model="ir.model">
+        <field name="name">Objeto del Museo</field>
+        <field name="model">museo.objeto</field>
+        <field name="info">Objetos históricos del museo</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_historia_barrio" model="ir.model">
+        <field name="name">Historia de Barrio</field>
+        <field name="model">museo.historia.barrio</field>
+        <field name="info">Historias de barrios relacionados con el museo</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_convenio" model="ir.model">
+        <field name="name">Convenio de Trabajo</field>
+        <field name="model">museo.convenio</field>
+        <field name="info">Convenios institucionales del museo</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_actividad" model="ir.model">
+        <field name="name">Actividad del Museo</field>
+        <field name="model">museo.actividad</field>
+        <field name="info">Actividades y eventos del museo</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_informe" model="ir.model">
+        <field name="name">Informe Estadístico</field>
+        <field name="model">museo.informe</field>
+        <field name="info">Informes estadísticos del museo</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_registro_asistencia" model="ir.model">
+        <field name="name">Registro de Asistencia</field>
+        <field name="model">museo.registro.asistencia</field>
+        <field name="info">Registros de asistencia a actividades</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_wizard_generar_informe" model="ir.model">
+        <field name="name">Wizard Generar Informe</field>
+        <field name="model">museo.wizard.generar.informe</field>
+        <field name="info">Wizard para generar informes rápidos</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_wizard_importar_objetos" model="ir.model">
+        <field name="name">Wizard Importar Objetos</field>
+        <field name="model">museo.wizard.importar.objetos</field>
+        <field name="info">Wizard para importación masiva de objetos</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_wizard_asignar_trabajadores" model="ir.model">
+        <field name="name">Wizard Asignar Trabajadores</field>
+        <field name="model">museo.wizard.asignar.trabajadores</field>
+        <field name="info">Wizard para asignación masiva de trabajadores</field>
+        <field name="state">manual</field>
+    </record>
+
+    <record id="model_museo_config_settings" model="ir.model">
+        <field name="name">Configuración de Museos</field>
+        <field name="model">museo.config.settings</field>
+        <field name="info">Configuración del sistema de museos</field>
+        <field name="state">manual</field>
+    </record>
+</odoo>

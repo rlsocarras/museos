@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard para Generación Rápida de Informes -->
+    <record id="view_museo_wizard_generar_informe_form" model="ir.ui.view">
+        <field name="name">museo.wizard.generar.informe.form</field>
+        <field name="model">museo.wizard.generar.informe</field>
+        <field name="arch" type="xml">
+            <form string="Generar Informe Rápido">
+                <header>
+                    <button name="action_generar" type="object" string="Generar" class="btn-primary"/>
+                    <button name="action_cancelar" special="cancel" string="Cancelar" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="museo_id" required="1"/>
+                            <field name="periodo" required="1"/>
+                            <field name="fecha_inicio" required="1"/>
+                            <field name="fecha_fin" required="1"/>
+                        </group>
+                        <group>
+                            <field name="incluir_graficos" widget="boolean_button"/>
+                            <field name="incluir_detalles" widget="boolean_button"/>
+                            <field name="formato_exportacion"/>
+                            <field name="enviar_email" widget="boolean_button"/>
+                            <field name="email_destinatario" invisible="'enviar_email', '=', False"/>
+                        </group>
+                    </group>
+                    <div class="o_form_label">Opciones Avanzadas</div>
+                    <field name="opciones_avanzadas" widget="one2many">
+                        <list>
+                            <field name="tipo_dato"/>
+                            <field name="incluir"/>
+                            <field name="nivel_detalle"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard para Importación Masiva de Objetos -->
+    <record id="view_museo_wizard_importar_objetos_form" model="ir.ui.view">
+        <field name="name">museo.wizard.importar.objetos.form</field>
+        <field name="model">museo.wizard.importar.objetos</field>
+        <field name="arch" type="xml">
+            <form string="Importar Objetos">
+                <header>
+                    <button name="action_importar" type="object" string="Importar" class="btn-primary"/>
+                    <button name="action_cancelar" special="cancel" string="Cancelar" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="museo_id" required="1"/>
+                            <field name="archivo" required="1" widget="binary"/>
+                            <field name="formato_archivo" required="1"/>
+                        </group>
+                        <group>
+                            <field name="sobrescribir_existentes" widget="boolean_button"/>
+                            <field name="validar_duplicados" widget="boolean_button"/>
+                            <field name="crear_categorias" widget="boolean_button"/>
+                        </group>
+                    </group>
+                    <div class="o_form_label">Mapeo de Campos</div>
+                    <field name="mapeo_campos" widget="one2many">
+                        <list>
+                            <field name="campo_archivo"/>
+                            <field name="campo_sistema"/>
+                            <field name="formato"/>
+                            <field name="requerido"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard para Asignación Masiva de Trabajadores -->
+    <record id="view_museo_wizard_asignar_trabajadores_form" model="ir.ui.view">
+        <field name="name">museo.wizard.asignar.trabajadores.form</field>
+        <field name="model">museo.wizard.asignar.trabajadores</field>
+        <field name="arch" type="xml">
+            <form string="Asignar Trabajadores a Actividades">
+                <header>
+                    <button name="action_asignar" type="object" string="Asignar" class="btn-primary"/>
+                    <button name="action_cancelar" special="cancel" string="Cancelar" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="actividad_ids" widget="many2many_tags" required="1"/>
+                            <field name="trabajadores_ids" widget="many2many_tags" required="1"/>
+                            <field name="fecha_desde" widget="date"/>
+                            <field name="fecha_hasta" widget="date"/>
+                        </group>
+                        <group>
+                            <field name="tipo_asignacion" required="1"/>
+                            <field name="limitar_horas" widget="boolean_button"/>
+                            <field name="maximo_horas_semanales"/>
+                            <field name="notificar_trabajadores" widget="boolean_button"/>
+                        </group>
+                    </group>
+                    <div class="o_form_label">Previsualización de Asignaciones</div>
+                    <field name="previsualizacion_asignaciones" widget="one2many">
+                        <list>
+                            <field name="actividad"/>
+                            <field name="trabajador"/>
+                            <field name="horas_asignadas"/>
+                            <field name="conflicto"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acciones para los Wizards -->
+    <record id="action_museo_wizard_generar_informe" model="ir.actions.act_window">
+        <field name="name">Generar Informe Rápido</field>
+        <field name="res_model">museo.wizard.generar.informe</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_museo_wizard_importar_objetos" model="ir.actions.act_window">
+        <field name="name">Importar Objetos</field>
+        <field name="res_model">museo.wizard.importar.objetos</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_museo_wizard_asignar_trabajadores" model="ir.actions.act_window">
+        <field name="name">Asignar Trabajadores</field>
+        <field name="res_model">museo.wizard.asignar.trabajadores</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
