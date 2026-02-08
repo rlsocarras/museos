@@ -16,8 +16,7 @@
                 class="btn-secondary" icon="fa-calendar"/>
                     <button name="action_view_convenios" type="object" string="Convenios" 
                 class="btn-secondary" icon="fa-handshake-o"/>
-                    <button name="action_view_informes" type="object" string="Informes" 
-                class="btn-secondary" icon="fa-chart-bar"/>
+                    
                     <button name="action_view_galeria" type="object" string="Galería" 
                 class="btn-secondary" icon="fa-images"/>
                 </header>
@@ -28,7 +27,7 @@
                             <div class="o_stat_info">
                                 <span class="o_stat_text">Objetos</span>
                                 <span class="o_stat_value">
-                                    <field name="total_objetos" widget="statinfo"/>
+                                    <field name="total_objetos" widget="statinfo" nolabel="1"/>
                                 </span>
                             </div>
                         </button>
@@ -36,7 +35,7 @@
                             <div class="o_stat_info">
                                 <span class="o_stat_text">Actividades</span>
                                 <span class="o_stat_value">
-                                    <field name="total_actividades" widget="statinfo"/>
+                                    <field name="total_actividades" widget="statinfo"  nolabel="1"/>
                                 </span>
                             </div>
                         </button>
@@ -44,23 +43,16 @@
                             <div class="o_stat_info">
                                 <span class="o_stat_text">Convenios</span>
                                 <span class="o_stat_value">
-                                    <field name="total_convenios" widget="statinfo"/>
+                                    <field name="total_convenios" widget="statinfo" nolabel="1"/>
                                 </span>
                             </div>
                         </button>
-                        <button name="action_view_informes" type="object" class="oe_stat_button" icon="fa-chart-bar">
-                            <div class="o_stat_info">
-                                <span class="o_stat_text">Informes</span>
-                                <span class="o_stat_value">
-                                    <field name="informes_publicados" widget="statinfo"/>
-                                </span>
-                            </div>
-                        </button>
+                        
                         <button name="action_view_galeria" type="object" class="oe_stat_button" icon="fa-images">
                             <div class="o_stat_info">
                                 <span class="o_stat_text">Fotos</span>
                                 <span class="o_stat_value">
-                                    <field name="galeria_ids" widget="statinfo" options="{'type': 'integer'}"/>
+                                    <field name="galeria_ids" widget="statinfo" options="{'type': 'integer'}" nolabel="1"/>
                                 </span>
                             </div>
                         </button>

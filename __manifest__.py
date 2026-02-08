@@ -18,6 +18,9 @@
         'web',
         'website'
     ],
+    'external_dependencies': {
+        'python': ['reportlab', 'xlsxwriter'],
+    },
     'data': [
     'security/museo_security.xml',
     'security/ir.model.access.csv',
@@ -39,12 +42,18 @@
     #'views/dashboard_views.xml',
     'views/configuracion_views.xml',
     'views/wizard_views.xml',
-    'views/kanban_views.xml',
+
+    'views/kanban_museo_views.xml',
+    'views/kanban_objetos_views.xml',
+    'views/kanban_actividades_views.xml',
+    'views/kanban_galeria_views.xml',
     'views/filtros_personalizados_views.xml',
     'views/actions_views.xml',
-    'views/menu_views.xml',
     'views/museo_galeria_views.xml',
+    'views/reportes_views.xml',
+    'views/menu_views.xml',
 
+    'templates/historia_barrio_detalle.xml',
     'templates/museo_landing.xml',
     'templates/museo_templates.xml',
     'templates/layout_museo.xml',
@@ -71,6 +80,9 @@
            
             'museos/static/css/museo_carousel.css',
             'museos/static/js/museo_effects.js',
+        ],
+        'web.assets_backend': [
+            'museos/static/css/kanban_style.css',
         ],
     },
     

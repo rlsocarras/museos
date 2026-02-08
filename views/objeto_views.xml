@@ -88,6 +88,6 @@
     <record id="action_museo_objeto" model="ir.actions.act_window">
         <field name="name">Objetos del Museo</field>
         <field name="res_model">museo.objeto</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 </odoo>

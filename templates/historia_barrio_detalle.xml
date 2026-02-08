@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="historia_barrio_detalle" name="Historia de Barrio - Detalle">
+            <t t-call="website.layout">
+                <t t-set="title" t-value="historia.name"/>
+                <div id="wrap" class="historia-detalle-page">
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="container mt-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a t-attf-href="/museos/#{museo.id}">
+                                    <t t-esc="museo.name"/>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#historia">Historias</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <t t-esc="historia.name"/>
+                            </li>
+                        </ol>
+                    </nav>
+                    <!-- Hero Section -->
+                    <div class="historia-hero">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-lg-8">
+                                    <div class="historia-header">
+                                        <span class="historia-category">
+                                            <t t-if="historia.fuente == 'oral'">
+                                                <i class="bi bi-mic-fill"></i> Tradición Oral
+                                            </t>
+                                            <t t-elif="historia.fuente == 'documental'">
+                                                <i class="bi bi-archive-fill"></i> Fuente Documental
+                                            </t>
+                                            <t t-elif="historia.fuente == 'arqueologica'">
+                                                <i class="bi bi-shovel-fill"></i> Evidencia Arqueológica
+                                            </t>
+                                            <t t-else="">
+                                                <i class="bi bi-collection-fill"></i> Fuente Mixta
+                                            </t>
+                                        </span>
+                                        <h1 class="historia-title">
+                                            <t t-esc="historia.name"/>
+                                        </h1>
+                                        <div class="historia-meta">
+                                            <span class="historia-location">
+                                                <i class="bi bi-geo-alt-fill"></i>
+                                                <strong>Barrio:</strong>
+                                                <t t-esc="historia.barrio"/>
+                                                <t t-if="historia.ciudad">,
+                                                    <t t-esc="historia.ciudad"/></t>
+                                            </span>
+                                            <span class="historia-date">
+                                                <i class="bi bi-calendar-event-fill"></i>
+                                                <strong>Registrado:</strong>
+                                                <t t-esc="historia.fecha_registro.strftime('%d de %B de %Y')"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-lg-end">
+                                    <div class="historia-status-box">
+                                        <h5>Estado de investigación</h5>
+                                        <div class="status-badge">
+                                            <t t-esc="dict(historia._fields['estado_investigacion'].selection).get(historia.estado_investigacion, '')"/>
+                                        </div>
+                                        <div class="historia-researcher-info mt-3">
+                                            <h6>Investigador responsable</h6>
+                                            <p class="mb-0">
+                                                <i class="bi bi-person-circle"></i>
+                                                <t t-esc="historia.investigador_responsable"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contenido Principal -->
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <article class="historia-content">
+                                    <div class="historia-body" t-field="historia.contenido_historico" t-options='{"widget": "html"}'/>
+                                    <!-- Testimonios -->
+                                    <t t-if="historia.testimonios and len(historia.testimonios.strip()) > 0">
+                                        <div class="testimonios-section mt-5">
+                                            <h3 class="section-subtitle">
+                                                <i class="bi bi-chat-quote"></i>
+                                        Testimonios Recopilados
+                                            </h3>
+                                            <div class="testimonios-content">
+                                                <t t-foreach="historia.testimonios.split('\n')" t-as="testimonio">
+                                                    <t t-if="testimonio.strip()">
+                                                        <div class="testimonio-item">
+                                                            <i class="bi bi-quote"></i>
+                                                            <p>
+                                                                <t t-esc="testimonio.strip()"/>
+                                                            </p>
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </article>
+                                <!-- Documentación adjunta -->
+                                <t t-if="historia.documentacion">
+                                    <div class="documentacion-section mt-5">
+                                        <h3 class="section-subtitle">
+                                            <i class="bi bi-paperclip"></i>
+                                    Documentación
+                                        </h3>
+                                        <div class="documento-download">
+                                            <a t-attf-href="/web/content/#{historia._model}/#{historia.id}/documentacion" 
+                                       class="btn btn-outline-primary" 
+                                       download="">
+                                                <i class="bi bi-download"></i>
+                                        Descargar documento
+                                                <small class="d-block text-muted">
+                                                    <t t-esc="historia.documentacion_filename"/>
+                                                </small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            <!-- Sidebar -->
+                            <div class="col-lg-4">
+                                <div class="historia-sidebar">
+                                    <!-- Museo relacionado -->
+                                    <div class="sidebar-card">
+                                        <h5 class="sidebar-title">
+                                            <i class="bi bi-building"></i>
+                                    Museo relacionado
+                                        </h5>
+                                        <div class="museo-info">
+                                            <h6>
+                                                <a t-attf-href="/museos/#{museo.id}" class="text-decoration-none">
+                                                    <t t-esc="museo.name"/>
+                                                </a>
+                                            </h6>
+                                            <p class="text-muted mb-2">
+                                                <t t-esc="museo.direccion[:100]"/>...
+                                            </p>
+                                            <a t-attf-href="/museos/#{museo.id}" class="btn btn-sm btn-outline-primary">
+                                        Visitar museo
+                                    </a>
+                                        </div>
+                                    </div>
+                                    <!-- Otras historias -->
+                                    <t t-set="otras_historias" t-value="request.env['museo.historia.barrio'].search([
+                                ('museo_id', '=', museo.id),
+                                ('id', '!=', historia.id),
+                                ('active', '=', True)
+                            ], limit=5, order='fecha_registro desc')"/>
+                                    <t t-if="otras_historias">
+                                        <div class="sidebar-card">
+                                            <h5 class="sidebar-title">
+                                                <i class="bi bi-clock-history"></i>
+                                        Más historias
+                                            </h5>
+                                            <div class="list-group">
+                                                <t t-foreach="otras_historias" t-as="otra">
+                                                    <a t-attf-href="/historia/barrio/#{otra.id}" 
+                                               class="list-group-item list-group-item-action">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h6 class="mb-1">
+                                                                <t t-esc="otra.name"/>
+                                                            </h6>
+                                                            <small>
+                                                                <t t-esc="otra.fecha_registro.strftime('%d/%m/%y')"/>
+                                                            </small>
+                                                        </div>
+                                                        <p class="mb-1 text-muted">
+                                                            <i class="bi bi-geo-alt"></i>
+                                                            <t t-esc="otra.barrio"/>
+                                                        </p>
+                                                    </a>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <!-- Compartir -->
+                                    <div class="sidebar-card">
+                                        <h5 class="sidebar-title">
+                                            <i class="bi bi-share"></i>
+                                    Compartir esta historia
+                                        </h5>
+                                        <div class="social-sharing">
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-facebook"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-twitter"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-whatsapp"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-link-45deg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

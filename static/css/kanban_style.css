@@ -1,0 +1,137 @@
+/* Estilos para Kanban de Museos */
+.o_museo_kanban {
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.o_museo_kanban:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.o_museo_kanban .stat-card {
+    border-radius: 8px;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.o_museo_kanban .stat-card:hover {
+    transform: scale(1.05);
+}
+
+.o_museo_kanban .alert-sm {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Estilos para Kanban de Actividades */
+.o_actividad_kanban {
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.o_actividad_kanban .progress {
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.o_actividad_kanban .opacity-50 {
+    opacity: 0.5;
+}
+
+/* Estilos para Kanban de Objetos */
+.o_objeto_kanban {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.o_objeto_kanban .o_kanban_image_container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.o_objeto_kanban .o_kanban_image_wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.o_objeto_kanban .oe_kanban_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.o_objeto_kanban .o_kanban_image_placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+}
+
+.o_objeto_kanban .estado-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.7rem;
+}
+
+.o_objeto_kanban .info-item {
+    background-color: #f8f9fa;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* Estilos para Kanban de Galería */
+.o_galeria_kanban {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.o_galeria_kanban .o_kanban_image_container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.o_galeria_kanban .principal-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.o_galeria_kanban .categoria-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .o_kanban_record_title {
+        font-size: 0.9rem;
+    }
+    
+    .o_kanban_card_body {
+        padding: 0.5rem;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Colores por estado */
+.oe_kanban_color_0 { border-left-color: #007bff; }
+.oe_kanban_color_1 { border-left-color: #28a745; }
+.oe_kanban_color_2 { border-left-color: #ffc107; }
+.oe_kanban_color_3 { border-left-color: #dc3545; }
+.oe_kanban_color_4 { border-left-color: #6c757d; }
+.oe_kanban_color_5 { border-left-color: #17a2b8; }
+.oe_kanban_color_6 { border-left-color: #6610f2; }

@@ -29,7 +29,7 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="#objetos" class="active" >
+                                        <a href="#objetos" >
                                             <i class="bi bi-journal"></i> Objetos
                                         </a>
                                     </li>
@@ -81,18 +81,27 @@
                             <t t-esc="museo.name"/>
                         </h1>
                         <p>
-                            <t t-if="museo.resenna_historica">
-                                <t t-esc="museo.resenna_historica.replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:1000]"/>
-                                ...
-                            </t>
-                            <t t-else="">
                                 Explora nuestras colecciones, participa en eventos exclusivos y conoce nuestra historia.
-                            </t>
+                            
                         </p>
                         <!-- <a href="#estadisticas" class="cta-button" >
                             Ver Estadísticas
                             <i class="bi bi-arrow-right"></i>
                         </a> -->
+                    </div>
+                </section>
+                <!-- Reseña Histórica -->
+                <section class="section " id="reseña">
+                    <div class="container">
+                        <t t-if="museo.resenna_historica">
+                            <div class="info-box mt-4">
+                                <h3 class="mb-4">
+                                    <i class="bi bi-clock-history text-primary mr-2"></i>
+                            Reseña Histórica
+                                </h3>
+                                <div t-raw="museo.resenna_historica"/>
+                        </div>
+                        </t>
                     </div>
                 </section>
                 <!-- Activities Timeline Section -->
@@ -274,15 +283,6 @@
                                 </div>
                                 <div class="stat-label">Convenios Activos</div>
                             </div>
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="bi bi-graph-up"></i>
-                                </div>
-                                <div class="stat-number">
-                                    <t t-esc="museo.informes_publicados or 0"/>
-                                </div>
-                                <div class="stat-label">Informes Publicados</div>
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -367,36 +367,107 @@
                     </div>
                 </section>
                 <!-- Historias de barrios -->
-                <section class="newa-section" id="historia">
+                <section class="historias-section" id="historia">
                     <div class="container">
                         <t t-if="museo.historia_barrio_ids">
-                            <h2 class="section-title text-center">Historias de barrios</h2>
-                            <div class="news-grid">
+                            <div class="section-header">
+                                <h2 class="section-title">Historias de barrios</h2>
+                                <p class="section-subtitle">Descubre las tradiciones y memorias de los barrios relacionados con nuestro museo</p>
+                            </div>
+                            <div class="row g-4 historias-grid">
                                 <t t-foreach="museo.historia_barrio_ids.sorted(key='fecha_registro', reverse=True)" t-as="historia">
-                                    <div class="news-card">
-                                        <div class="news-content">
-                                            <div class="news-date">
-                                                <t t-esc="historia.fecha_registro.strftime('%d/%m/%Y') if historia.fecha_registro else ''"/>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="historia-card">
+                                            <div class="historia-card-header">
+                                                <span class="historia-badge">
+                                                    <t t-if="historia.fuente == 'oral'">
+                                                        <i class="bi bi-mic"></i> Tradición Oral
+                                                    </t>
+                                                    <t t-elif="historia.fuente == 'documental'">
+                                                        <i class="bi bi-file-text"></i> Documental
+                                                    </t>
+                                                    <t t-elif="historia.fuente == 'arqueologica'">
+                                                        <i class="bi bi-shovel"></i> Arqueológica
+                                                    </t>
+                                                    <t t-else="">
+                                                        <i class="bi bi-collection"></i> Fuente Mixta
+                                                    </t>
+                                                </span>
+                                                <span class="historia-date">
+                                                    <i class="bi bi-calendar3"></i>
+                                                    <t t-esc="historia.fecha_registro.strftime('%d %b %Y') if historia.fecha_registro else ''"/>
+                                                </span>
                                             </div>
-                                            <h3 class="news-title">
-                                                <t t-esc="historia.name"/>
-                                            </h3>
-                                            <p class="news-excerpt">
-                                                <t t-esc="historia.barrio.replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:200]"/>
-                                        ...
-                                            </p>
-                                            <a href="#" class="read-more">Leer más
-                                                <i class="bi bi-chevron-right"></i>
-                                            </a>
+                                            <div class="historia-card-body">
+                                                <h3 class="historia-title">
+                                                    <t t-esc="historia.name"/>
+                                                </h3>
+                                                <div class="historia-meta">
+                                                    <span class="historia-location">
+                                                        <i class="bi bi-geo-alt"></i>
+                                                        <t t-esc="historia.barrio"/>
+                                                        <t t-if="historia.ciudad">,
+                                                            <t t-esc="historia.ciudad"/></t>
+                                                    </span>
+                                                    <span class="historia-status">
+                                                        <i class="bi bi-clipboard-check"></i>
+                                                        <t t-esc="dict(historia._fields['estado_investigacion'].selection).get(historia.estado_investigacion, '')"/>
+                                                    </span>
+                                                </div>
+                                                <div class="historia-excerpt">
+                                                    <t t-set="contenido_limpio" t-value="historia.contenido_historico.replace('&lt;', '').replace('&gt;', '').replace('&amp;', '').strip()"/>
+                                                    <t t-esc="contenido_limpio[:180]"/>
+                                                    <t t-if="len(contenido_limpio) > 180">...</t>
+                                                </div>
+                                                <div class="historia-testimonio-preview">
+                                                    <t t-if="historia.testimonios and len(historia.testimonios) > 0">
+                                                        <i class="bi bi-quote"></i>
+                                                        <em>
+                                                            <t t-set="testimonio_limpio" t-value="historia.testimonios.replace('\n', ' ').strip()"/>
+                                                            <t t-esc="testimonio_limpio[:120]"/>
+                                                            <t t-if="len(testimonio_limpio) > 120">...</t>
+                                                        </em>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div class="historia-card-footer">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="historia-researcher">
+                                                        <i class="bi bi-person-circle"></i>
+                                                        <small>Investigador:
+                                                            <t t-esc="historia.investigador_responsable"/>
+                                                        </small>
+                                                    </div>
+                                                    <a t-attf-href="/historia/barrio/#{historia.id}" class="btn-historia-link">
+                                                            Leer historia completa
+                                                        <i class="bi bi-arrow-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </t>
                             </div>
+                            <div class="text-center mt-5">
+                                <a href="#all-historias" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-collection-play"></i>
+                    Ver todas las historias
+                                </a>
+                            </div>
                         </t>
                         <t t-else="">
-                            <div class="alert alert-info">
-                                <i class="bi bi-info-circle mr-2"></i>
-                                No hay historias de barrios registradas.
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <i class="bi bi-book"></i>
+                                </div>
+                                <h3 class="empty-state-title">No hay historias registradas</h3>
+                                <p class="empty-state-text">Próximamente publicaremos las historias de los barrios relacionados con este museo.</p>
+                                <div class="empty-state-action">
+                                    <a href="#contacto" class="btn btn-primary">
+                                        <i class="bi bi-envelope"></i>
+                                         Sugerir una historia
+                                    </a>
+                                </div>
                             </div>
                         </t>
                     </div>
@@ -586,21 +657,6 @@
                         </t>
                     </div>
                 </section>
-                <!-- Reseña Histórica -->
-                <section class="section " id="reseña">
-                    <div class="container">
-                        <t t-if="museo.resenna_historica">
-                            <div class="info-box mt-4">
-                                <h3 class="mb-4">
-                                    <i class="bi bi-clock-history text-primary mr-2"></i>
-                            Reseña Histórica
-                                </h3>
-                                <div t-raw="museo.resenna_historica"/>
-                        </div>
-                        </t>
-                    </div>
-                </section>
-                
                 <footer>
                     <div class="container">
                         <div class="footer-content">
@@ -609,12 +665,7 @@
                                     <t t-esc="museo.name"/>
                                 </div>
                                 <p class="footer-description">
-                                    <t t-if="museo.resenna_historica">
-                                        <t t-esc="museo.resenna_historica.replace('&lt;', '').replace('&gt;', '').replace('&amp;', '')[:200]"/>...
-                                    </t>
-                                    <t t-else="">
                                         Museo cultural dedicado a preservar y compartir nuestro patrimonio.
-                                    </t>
                                 </p>
                                 <t t-if="museo.email">
                                     <p>

@@ -9,3 +9,6 @@ from . import configuracion_model
 from . import wizard_models
 from . import res_partner
 from . import museo_galeria_model
+from . import reporte_model
+from . import acciones_reportes
+from . import wizard_reportes

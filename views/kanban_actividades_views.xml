@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Kanban para Actividades - Mejorada -->
+    <record id="view_museo_actividad_kanban" model="ir.ui.view">
+        <field name="name">museo.actividad.kanban</field>
+        <field name="model">museo.actividad</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="estado" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="tipo_actividad"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="estado"/>
+                <field name="asistentes_confirmados"/>
+                <field name="capacidad_maxima"/>
+                <field name="duracion_horas"/>
+                <field name="museo_id"/>
+                <field name="sala"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <!-- Estado -->
+                            <div class="o_kanban_card_header">
+                                <div class="d-flex justify-content-between">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <span t-att-class="'badge ' + ({
+                                        'realizada': 'bg-success',
+                                        'en_curso': 'bg-warning', 
+                                        'confirmada': 'bg-info',
+                                        'planificada': 'bg-secondary',
+                                        'cancelada': 'bg-danger',
+                                        'pospuesta': 'bg-dark'
+                                    }[record.estado.raw_value] || 'bg-primary')">
+                                        <field name="estado"/>
+                                    </span>
+                                </div>
+                                <div class="mt-1">
+                                    <span class="badge bg-primary">
+                                        <field name="tipo_actividad"/>
+                                    </span>
+                                    <small class="text-muted ms-1">
+                                        <i class="fa fa-university"/>
+                                        <field name="museo_id"/>
+                                    </small>
+                                </div>
+                            </div>
+                            <!-- Información -->
+                            <div class="oe_kanban_details">
+                                <!-- Fechas -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small class="text-muted d-block">
+                                            <i class="fa fa-calendar"/>
+                                            Inicio
+                                        </small>
+                                        <strong>
+                                            <field name="fecha_inicio" widget="datetime"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted d-block">
+                                            <i class="fa fa-clock-o"/>
+                                            Duración
+                                        </small>
+                                        <strong>
+                                            <field name="duracion_horas"/> h
+                                        </strong>
+                                    </div>
+                                </div>
+                                <!-- Ubicación -->
+                                <div t-if="record.sala.raw_value" class="mt-1">
+                                    <small class="text-muted">
+                                        <i class="fa fa-map-marker"/>
+                                        <field name="sala"/>
+                                    </small>
+                                </div>
+                                <!-- Asistencia -->
+                                <div class="mt-2">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <small>Asistencia</small>
+                                        <small>
+                                            <field name="asistentes_confirmados"/> /
+                                            <field name="capacidad_maxima"/>
+                                            <span t-esc="'(' + Math.round((record.asistentes_confirmados.raw_value / record.capacidad_maxima.raw_value) * 100) + '%)'"/>
+                                        </small>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div t-att-class="'progress-bar ' + (
+                                            (record.asistentes_confirmados.raw_value / record.capacidad_maxima.raw_value) * 100 &lt; 50 ? 'bg-success' :
+                                            (record.asistentes_confirmados.raw_value / record.capacidad_maxima.raw_value) * 100 &lt; 80 ? 'bg-warning' :
+                                            'bg-danger'
+                                        )" 
+                                             t-att-style="'width: ' + ((record.asistentes_confirmados.raw_value / record.capacidad_maxima.raw_value) * 100) + '%;'"/>
+                                    </div>
+                                </div>
+                                <!-- Trabajadores -->
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        <i class="fa fa-users"/>
+                                        <span t-esc="record.trabajadores_ids.raw_value.length + ' trabajador(es)'"/>
+                                    </small>
+                                </div>
+                            </div>
+                            <!-- Acciones -->
+                            <div class="o_kanban_card_footer">
+                                <div class="btn-group w-100">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" name="action_registrar_asistencia">
+                                        <i class="fa fa-check"/>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" name="open">
+                                        <i class="fa fa-eye"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

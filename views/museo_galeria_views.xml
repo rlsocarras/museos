@@ -50,7 +50,7 @@
     </record>
 
     <!-- Vista Kanban para la galería -->
-    <record id="view_museo_galeria_kanban" model="ir.ui.view">
+    <record id="view_museo_galeria_kanban_old" model="ir.ui.view">
         <field name="name">museo.museo.galeria.kanban</field>
         <field name="model">museo.museo.galeria</field>
         <field name="arch" type="xml">
@@ -117,12 +117,4 @@
         <!-- <field name="search_view_id" ref="museos.view_museo_galeria_search"/>
         <field name="context">{'default_active': True}</field> -->
     </record>
-
-    <!-- Menú contextual para la galería -->
-    <!-- <menuitem id="menu_museo_galeria"
-              name="Galería de Fotos"
-              parent="museos.menu_museos_main"
-              sequence="50"
-              action="action_museo_galeria"/> -->
-
 </odoo>

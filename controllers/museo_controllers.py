@@ -54,3 +54,19 @@ class MuseoController(http.Controller):
         if currency:
             return f"{amount:,.2f} {currency.symbol}"
         return f"{amount:,.2f}"
+    
+    @http.route('/historia/barrio/<int:historia_id>', type='http', auth='public', website=True)
+    def historia_barrio_detalle(self, historia_id, **kwargs):
+        historia = request.env['museo.historia.barrio'].browse(historia_id)
+        
+        # Verificar que existe y está activa
+        if not historia.exists() or not historia.active:
+            return request.redirect('/404')
+        
+        valores = {
+            'historia': historia,
+            'museo': historia.museo_id,
+            'main_object': historia,
+        }
+        
+        return request.render('museos.historia_barrio_detalle', valores)

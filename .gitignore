@@ -11,6 +11,7 @@ bibliografia/
 
 # Distribution / packaging
 .Python
+views/reporte_Reporte_*
 build/
 develop-eggs/
 dist/

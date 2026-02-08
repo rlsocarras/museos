@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista para el modelo museo.reporte -->
+    <record id="view_museo_reporte_list" model="ir.ui.view">
+        <field name="name">museo.reporte.list</field>
+        <field name="model">museo.reporte</field>
+        <field name="arch" type="xml">
+            <list string="Reportes">
+                <field name="name"/>
+                <field name="tipo_reporte"/>
+                <field name="museo_id"/>
+                <field name="fecha_desde"/>
+                <field name="fecha_hasta"/>
+                <field name="estado"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_museo_reporte_form" model="ir.ui.view">
+        <field name="name">museo.reporte.form</field>
+        <field name="model">museo.reporte</field>
+        <field name="arch" type="xml">
+            <form string="Reporte">
+                <header>
+                    <button name="action_generar_reporte" type="object" string="Generar Reporte" class="btn-primary"/>
+                    <button name="action_exportar_pdf" type="object" string="Exportar PDF"/>
+                    <button name="action_exportar_excel" type="object" string="Exportar Excel"/>
+                    <field name="estado" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tipo_reporte"/>
+                            <field name="museo_id"/>
+                        </group>
+                        <group>
+                            <field name="fecha_desde"/>
+                            <field name="fecha_hasta"/>
+                            <field name="estado"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Filtros">
+                            <group>
+                                <group>
+                                    <field name="tipo_actividad"/>
+                                    <field name="estado_actividad"/>
+                                </group>
+                                <group>
+                                    <field name="trabajador_ids" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Resultados">
+                            <group>
+                                <group>
+                                    <div class="alert alert-info" role="alert">
+                                        <h4 class="alert-heading">Estado del Reporte</h4>
+                                        <p>El reporte se ha generado exitosamente.</p>
+                                        <p>Para ver los datos detallados, haga clic en "Exportar PDF" o "Exportar Excel".</p>
+                                    </div>
+                                </group>
+                                <group>
+                                    <!-- Campo para ver datos si están disponibles -->
+                                    <field name="datos_reportes" widget="text" readonly="1" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Vista para el wizard -->
+    <record id="view_museo_wizard_reporte_rapido_form" model="ir.ui.view">
+        <field name="name">museo.wizard.reporte.rapido.form</field>
+        <field name="model">museo.wizard.reporte.rapido</field>
+        <field name="arch" type="xml">
+            <form string="Generar Reporte Rápido">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tipo_reporte"/>
+                            <field name="museo_id"/>
+                            <field name="rango_fechas"/>
+                        </group>
+                        <group>
+                            <!-- CORRECCIÓN: attrs debe estar dentro de field -->
+                            <field name="fecha_desde">
+                                <attribute name="attrs">{'required': [('rango_fechas', '=', 'personalizado')]}</attribute>
+                            </field>
+                            <field name="fecha_hasta">
+                                <attribute name="attrs">{'required': [('rango_fechas', '=', 'personalizado')]}</attribute>
+                            </field>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="tipo_actividad"/>
+                            <field name="estado_actividad"/>
+                        </group>
+                        <group>
+                            <field name="trabajador_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_generar_reporte" type="object" string="Generar Reporte" class="btn-primary"/>
+                        <button name="action_generar_y_exportar" type="object" string="Generar y Exportar PDF"/>
+                        <button string="Cancelar" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Acciones -->
+    <record id="action_museo_reporte" model="ir.actions.act_window">
+        <field name="name">Reportes del Museo</field>
+        <field name="res_model">museo.reporte</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_museo_wizard_reporte_rapido_trabajador" model="ir.actions.act_window">
+        <field name="name">Reporte Actividades por Trabajador</field>
+        <field name="res_model">museo.wizard.reporte.rapido</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_tipo_reporte': 'actividades_trabajador'}</field>
+    </record>
+    <record id="action_museo_wizard_reporte_rapido_fechas" model="ir.actions.act_window">
+        <field name="name">Reporte Actividades por Fechas</field>
+        <field name="res_model">museo.wizard.reporte.rapido</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_tipo_reporte': 'actividades_fechas'}</field>
+    </record>
+</odoo>

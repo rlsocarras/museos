@@ -70,8 +70,8 @@
     </record>
 
     <!-- Lista de Actividades -->
-    <record id="view_museo_actividad_tree" model="ir.ui.view">
-        <field name="name">museo.actividad.tree</field>
+    <record id="view_museo_actividad_list" model="ir.ui.view">
+        <field name="name">museo.actividad.list</field>
         <field name="model">museo.actividad</field>
         <field name="arch" type="xml">
             <list string="Actividades" decoration-danger="estado == 'cancelada'" decoration-warning="estado == 'pospuesta'" decoration-success="estado == 'realizada'">
@@ -114,13 +114,7 @@
         </field>
     </record>
 
-    <!-- Acción para Actividades -->
-    <record id="action_museo_actividad" model="ir.actions.act_window">
-        <field name="name">Actividades del Museo</field>
-        <field name="res_model">museo.actividad</field>
-        <field name="view_mode">list,calendar,form,graph,pivot</field>
-        <field name="context">{'search_default_esta_semana': 1}</field>
-    </record>
+   
 
     <!-- Vista de Calendario -->
     <record id="view_museo_actividad_calendar" model="ir.ui.view">
@@ -165,5 +159,13 @@
                 <field name="costo" type="measure"/>
             </pivot>
         </field>
+    </record>
+
+     <!-- Acción para Actividades -->
+    <record id="action_museo_actividad" model="ir.actions.act_window">
+        <field name="name">Actividades del Museo</field>
+        <field name="res_model">museo.actividad</field>
+        <field name="view_mode">kanban,list,calendar,form,graph,pivot</field>
+        
     </record>
 </odoo>

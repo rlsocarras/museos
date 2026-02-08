@@ -2123,3 +2123,221 @@ footer {
         font-size: 1.1rem;
     }
 }
+
+/* Sección Historias */
+.historias-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Tarjetas de Historia */
+.historia-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.historia-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+.historia-card-header {
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.historia-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.historia-badge i {
+    margin-right: 5px;
+}
+
+.historia-date {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.historia-card-body {
+    padding: 25px;
+}
+
+.historia-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.historia-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.historia-location, .historia-status {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.historia-location i, .historia-status i {
+    color: #3498db;
+}
+
+.historia-excerpt {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.historia-testimonio-preview {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 12px 15px;
+    border-radius: 0 8px 8px 0;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.historia-testimonio-preview i {
+    color: #3498db;
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.historia-card-footer {
+    padding: 20px 25px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.historia-researcher {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.historia-researcher i {
+    color: #2ecc71;
+    margin-right: 5px;
+}
+
+.btn-historia-link {
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-historia-link:hover {
+    transform: translateX(5px);
+    color: white;
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Estado vacío */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    color: #bdc3c7;
+    margin-bottom: 20px;
+}
+
+.empty-state-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.empty-state-text {
+    color: #6c757d;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .historias-section {
+        padding: 50px 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .historia-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .historia-card-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .historia-card-footer .d-flex {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .btn-historia-link {
+        text-align: center;
+        justify-content: center;
+    }
+}

@@ -2,78 +2,71 @@
 <odoo>
     <!-- Menú Principal -->
     <menuitem id="menu_museos_root" name="Gestión Museos" sequence="10"/>
-    
     <!-- Dashboard -->
     <!-- <menuitem id="menu_museos_dashboard" name="Dashboard" parent="menu_museos_root" sequence="10"
               action="action_museo_dashboard"/> -->
-    
     <!-- Museos -->
     <menuitem id="menu_museos_museos" name="Museos" parent="menu_museos_root" sequence="10"
               action="action_museo_museo"/>
-              
     <!-- Submenú de Gestión -->
     <menuitem id="menu_museos_gestion" name="Gestión" parent="menu_museos_root" sequence="20"/>
-
     <!-- Submenú de Actividades -->
     <menuitem id="menu_museos_actividades_root" name="Actividades" parent="menu_museos_root" sequence="30"/>
-
     <!-- Submenú de Informes -->
-    <menuitem id="menu_museos_informes_root" name="Informes" parent="menu_museos_root" sequence="40"/>
-    
-    
+    <!-- <menuitem id="menu_museos_informes_root" name="Informes" parent="menu_museos_root" sequence="40"/> -->
     <!-- Objetos -->
     <menuitem id="menu_museos_objetos" name="Objetos" parent="menu_museos_gestion" sequence="20"
               action="action_museo_objeto"/>
-    
     <!-- Historias de Barrios -->
     <menuitem id="menu_museos_historias" name="Historias de Barrios" parent="menu_museos_gestion" sequence="30"
               action="action_museo_historia_barrio"/>
-    
     <!-- Convenios -->
     <menuitem id="menu_museos_convenios" name="Convenios" parent="menu_museos_gestion" sequence="40"
               action="action_museo_convenio"/>
-    
     <!-- Trabajadores -->
     <menuitem id="menu_museos_trabajadores" name="Trabajadores" parent="menu_museos_gestion" sequence="50"
               action="action_museo_trabajadores"/>
-    
-    
-    
     <!-- Actividades -->
     <menuitem id="menu_museos_actividades" name="Actividades" parent="menu_museos_actividades_root" sequence="10"
               action="action_museo_actividad"/>
-    
     <!-- Calendario -->
     <menuitem id="menu_museos_calendario" name="Calendario" parent="menu_museos_actividades_root" sequence="20"
               action="action_museo_actividad"
               />
-    
     <!-- Registro de Asistencia -->
     <menuitem id="menu_museos_asistencia" name="Registro de Asistencia" parent="menu_museos_actividades_root" sequence="30"
               action="action_museo_registro_asistencia"/>
-    
-    
-    
     <!-- Informes Estadísticos -->
-    <menuitem id="menu_museos_informes" name="Informes Estadísticos" parent="menu_museos_informes_root" sequence="10"
-              action="action_museo_informe"/>
-    
+    <!-- <menuitem id="menu_museos_informes" name="Informes Estadísticos" parent="menu_museos_informes_root" sequence="10"
+              action="action_museo_informe"/> -->
     <!-- Submenú de Herramientas -->
-    <menuitem id="menu_museos_herramientas" name="Herramientas" parent="menu_museos_root" sequence="50"/>
-    
+    <!-- <menuitem id="menu_museos_herramientas" name="Herramientas" parent="menu_museos_root" sequence="50"/> -->
     <!-- Importar Objetos -->
-    <menuitem id="menu_museos_importar_objetos" name="Importar Objetos" parent="menu_museos_herramientas" sequence="10"
-              action="action_museo_wizard_importar_objetos"/>
-    
+    <!-- <menuitem id="menu_museos_importar_objetos" name="Importar Objetos" parent="menu_museos_herramientas" sequence="10"
+              action="action_museo_wizard_importar_objetos"/> -->
     <!-- Asignar Trabajadores -->
-    <menuitem id="menu_museos_asignar_trabajadores" name="Asignar Trabajadores" parent="menu_museos_herramientas" sequence="20"
-              action="action_museo_wizard_asignar_trabajadores"/>
-    
+    <!-- menuitem id="menu_museos_asignar_trabajadores" name="Asignar Trabajadores" parent="menu_museos_herramientas" sequence="20"
+              action="action_museo_wizard_asignar_trabajadores"/> -->
     <!-- Informe Rápido -->
-    <menuitem id="menu_museos_informe_rapido" name="Informe Rápido" parent="menu_museos_herramientas" sequence="30"
-              action="action_museo_wizard_generar_informe"/>
-    
+    <!-- <menuitem id="menu_museos_informe_rapido" name="Informe Rápido" parent="menu_museos_herramientas" sequence="30"
+              action="action_museo_wizard_generar_informe"/> -->
     <!-- Configuración -->
     <menuitem id="menu_museos_configuracion" name="Configuración" parent="menu_museos_root" sequence="60"
               action="action_museo_config_settings"/>
+
+    <!-- Menú principal de reportes -->
+    <menuitem id="menu_museo_reportes" name="Reportes" parent="menu_museos_root" sequence="70"/>
+    <menuitem id="menu_museo_reportes_lista" name="Todos los Reportes" parent="menu_museo_reportes" action="action_museo_reporte" 
+    sequence="10"/>
+    <menuitem id="menu_museo_reportes_rapidos" name="Reportes Rápidos" parent="menu_museo_reportes">
+        <menuitem id="menu_museo_reporte_actividades_trabajador" name="Actividades por Trabajador" action="action_museo_wizard_reporte_rapido_trabajador"
+        sequence="10"/>
+        <menuitem id="menu_museo_reporte_actividades_fechas" name="Actividades por Fechas" action="action_museo_wizard_reporte_rapido_fechas"
+        sequence="20"/>
+        <!-- COMENTAR TEMPORALMENTE HASTA DEFINIR LA ACCIÓN -->
+        <!--
+        <menuitem id="menu_museo_reporte_mensual" name="Reporte Mensual Automático" action="action_museo_reporte_mensual"
+        sequence="30"/>
+        -->
+    </menuitem>
 </odoo>

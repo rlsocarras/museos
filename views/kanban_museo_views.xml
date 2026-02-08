@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Kanban para Museos - Mejorada -->
+    <record id="view_museo_museo_kanban" model="ir.ui.view">
+        <field name="name">museo.museo.kanban</field>
+        <field name="model">museo.museo</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" >
+                <field name="name"/>
+                <field name="imagen_principal"/>
+                <field name="fecha_creacion"/>
+                <field name="total_objetos"/>
+                <field name="total_actividades"/>
+                <field name="total_convenios"/>
+                <field name="actividades_proximas_count"/>
+                <field name="convenios_por_vencer_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_museo_kanban">
+                            <!-- Imagen principal del museo -->
+                            <div t-if="record.imagen_principal.raw_value" class="o_kanban_image">
+                                <img t-att-src="'/web/image/museo.museo/' + record.id.raw_value + '/imagen_principal/100x100'" 
+                                     alt="Imagen del museo" 
+                                     class="oe_kanban_image img-fluid"/>
+                            </div>
+                            <div t-else="" class="o_kanban_image bg-light d-flex align-items-center justify-content-center">
+                                <i class="fa fa-university fa-3x text-muted"/>
+                            </div>
+                            <div class="o_kanban_card_body">
+                                <!-- Título -->
+                                <div class="o_kanban_card_header mb-2">
+                                    <strong class="o_kanban_record_title h5">
+                                        <field name="name"/>
+                                    </strong>
+                                    <small class="text-muted d-block">
+                                        <i class="fa fa-calendar me-1"/>
+                                        Creado:
+                                        <field name="fecha_creacion" widget="date"/>
+                                    </small>
+                                </div>
+                                <!-- Estadísticas principales -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <div class="card stat-card bg-primary text-white">
+                                            <div class="card-body text-center p-2">
+                                                <i class="fa fa-book fa-lg mb-1"/>
+                                                <div class="h4 mb-0">
+                                                    <field name="total_objetos"/>
+                                                </div>
+                                                <small>Objetos</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card stat-card bg-info text-white">
+                                            <div class="card-body text-center p-2">
+                                                <i class="fa fa-calendar fa-lg mb-1"/>
+                                                <div class="h4 mb-0">
+                                                    <field name="total_actividades"/>
+                                                </div>
+                                                <small>Actividades</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card stat-card bg-success text-white">
+                                            <div class="card-body text-center p-2">
+                                                <i class="fa fa-handshake-o fa-lg mb-1"/>
+                                                <div class="h4 mb-0">
+                                                    <field name="total_convenios"/>
+                                                </div>
+                                                <small>Convenios</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card stat-card bg-warning text-white">
+                                            <div class="card-body text-center p-2">
+                                                <i class="fa fa-bell fa-lg mb-1"/>
+                                                <div class="h4 mb-0">
+                                                    <field name="actividades_proximas_count"/>
+                                                </div>
+                                                <small>Próximas</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Alertas -->
+                                <div t-if="record.convenios_por_vencer_count.raw_value > 0" class="alert alert-warning alert-sm p-1 mb-2">
+                                    <i class="fa fa-exclamation-triangle me-1"/>
+                                    <small>
+                                        <field name="convenios_por_vencer_count"/> convenios por vencer
+                                    </small>
+                                </div>
+                                <!-- Acciones rápidas -->
+                                <div class="d-flex justify-content-between mt-3">
+                                    <button type="object" class="btn btn-sm btn-outline-primary" name="action_view_objetos">
+                                        <i class="fa fa-book me-1"/> Objetos
+                                    </button>
+                                    <button type="object" class="btn btn-sm btn-outline-success" name="action_view_actividades">
+                                        <i class="fa fa-calendar me-1"/> Actividades
+                                    </button>
+                                    <button type="object" class="btn btn-sm btn-outline-info" name="action_view_convenios">
+                                        <i class="fa fa-handshake-o me-1"/> Convenios
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+</odoo>
