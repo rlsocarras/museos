@@ -2341,3 +2341,231 @@ footer {
         justify-content: center;
     }
 }
+
+/* Estilos específicos para la página de historia dentro del layout del museo */
+.museo-page-content {
+    min-height: 100vh;
+}
+
+.museo-breadcrumb {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.museo-page-hero {
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 2rem;
+}
+
+.museo-page-hero .hero-content {
+    max-width: 800px;
+}
+
+.historia-badge-large {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    line-height: 1.2;
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.status-ribbon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.status-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.status-value {
+    font-weight: 600;
+    background: rgba(255,255,255,0.2);
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+}
+
+.historia-content-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.historia-content-card .card-body {
+    padding: 2rem;
+}
+
+.testimonios-section .section-header {
+    margin-bottom: 2rem;
+}
+
+.testimonios-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.testimonio-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    border-left: 4px solid #3498db;
+}
+
+.testimonio-icon {
+    color: #3498db;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.documento-card {
+    background: white;
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.documento-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.document-icon {
+    font-size: 2rem;
+    color: #6c757d;
+}
+
+.btn-download {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Sidebar estilos */
+.historia-sidebar {
+    position: sticky;
+    top: 2rem;
+}
+
+.sidebar-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.sidebar-card .card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.museo-logo-small img {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.social-sharing-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.btn-social {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #dee2e6;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.btn-social:hover {
+    transform: translateY(-3px);
+}
+
+.btn-facebook:hover {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+}
+
+.btn-twitter:hover {
+    background: #1da1f2;
+    color: white;
+    border-color: #1da1f2;
+}
+
+.btn-whatsapp:hover {
+    background: #25d366;
+    color: white;
+    border-color: #25d366;
+}
+
+.btn-copy-link:hover {
+    background: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .museo-page-hero {
+        padding: 2rem 0;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-meta {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .historia-sidebar {
+        position: static;
+        margin-top: 2rem;
+    }
+}

@@ -53,10 +53,10 @@
     'views/reportes_views.xml',
     'views/menu_views.xml',
 
-    'templates/historia_barrio_detalle.xml',
     'templates/museo_landing.xml',
     'templates/museo_templates.xml',
     'templates/layout_museo.xml',
+    'templates/historia_barrio_detalle.xml',
     
     'reports/informe_estadistico_report.xml',
     'reports/informe_estadistico_template.xml',
