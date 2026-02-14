@@ -12,7 +12,7 @@
                             string="Establecer como Principal"
                             class="btn-primary"
                             icon="fa-star"
-                            invisible="'es_imagen_principal', '=', True"/>
+                            invisible="es_imagen_principal"/>
                     <field name="es_imagen_principal" widget="boolean_favorite" 
                            options="{'no_toggling': True}" readonly="1"/>
                 </header>

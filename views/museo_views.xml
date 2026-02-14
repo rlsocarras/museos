@@ -18,7 +18,7 @@
                 class="btn-secondary" icon="fa-handshake-o"/>
                     
                     <button name="action_view_galeria" type="object" string="Galería" 
-                class="btn-secondary" icon="fa-images"/>
+                class="btn-secondary" icon="fa-photo"/>
                 </header>
                 <sheet>
                     <!-- Botones estadísticos -->
@@ -48,7 +48,7 @@
                             </div>
                         </button>
                         
-                        <button name="action_view_galeria" type="object" class="oe_stat_button" icon="fa-images">
+                        <button name="action_view_galeria" type="object" class="oe_stat_button" icon="fa-photo">
                             <div class="o_stat_info">
                                 <span class="o_stat_text">Fotos</span>
                                 <span class="o_stat_value">
@@ -147,10 +147,9 @@
                                     <field name="tipo_actividad"/>
                                     <field name="fecha_inicio"/>
                                     <field name="fecha_fin"/>
-                                    <field name="estado"/>
-                                    <field name="asistentes_confirmados"/>
                                     <field name="capacidad_maxima"/>
                                     <field name="sala"/>
+                                    <field name="descripcion"/>
                                 </list>
                             </field>
                         </page>

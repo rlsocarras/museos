@@ -47,6 +47,8 @@
     'views/kanban_objetos_views.xml',
     'views/kanban_actividades_views.xml',
     'views/kanban_galeria_views.xml',
+    'views/kanban_convenios_views.xml',
+    'views/kanban_historia_barrios_views.xml',
     'views/filtros_personalizados_views.xml',
     'views/actions_views.xml',
     'views/museo_galeria_views.xml',

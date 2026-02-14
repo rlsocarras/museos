@@ -20,7 +20,7 @@
                         <div class="header-content">
                             <div class="logo">
                                 <div class="logo-icon">
-                                    <i class="bi bi-building"></i>
+                                    <i class="bi bi-bank"></i>
                                 </div>
                                 <div class="logo-text">
                                     <t t-esc="museo.name"/>
@@ -710,21 +710,21 @@
                                 <ul class="footer-links">
                                     <t t-if="museo.direccion">
                                         <li>
-                                            <a href="#" onclick="showMap()">
+                                            <a href="#" >
                                                 <i class="bi bi-geo-alt"></i> Cómo llegar
                                             </a>
                                         </li>
                                     </t>
                                     <li>
-                                        <a href="#" onclick="showContactInfo()">
+                                        <a href="#contacto" >
                                             <i class="bi bi-envelope"></i> Contacto
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="/" target="_blank">
                                             <i class="bi bi-box-arrow-up-right"></i> Sitio Principal
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>

@@ -9,9 +9,9 @@ class MuseoActividad(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'fecha_inicio desc, name asc'
     
-    # Campos de calendario (reemplazan la herencia directa)
-    start = fields.Datetime(string='Fecha Inicio', compute='_compute_calendar_fields', store=True)
-    stop = fields.Datetime(string='Fecha Fin', compute='_compute_calendar_fields', store=True)
+    # ELIMINA ESTOS CAMPOS:
+    # start = fields.Datetime(string='Fecha Inicio', compute='_compute_calendar_fields', store=True)
+    # stop = fields.Datetime(string='Fecha Fin', compute='_compute_calendar_fields', store=True)
     allday = fields.Boolean(string='Todo el día', default=False)
     name = fields.Char(
         string='Nombre de la Actividad',
@@ -126,12 +126,7 @@ class MuseoActividad(models.Model):
         ondelete='cascade'
     )
     
-    @api.depends('fecha_inicio', 'fecha_fin')
-    def _compute_calendar_fields(self):
-        """Calcula campos para integración con calendario"""
-        for actividad in self:
-            actividad.start = actividad.fecha_inicio
-            actividad.stop = actividad.fecha_fin
+    
     
     @api.depends('fecha_inicio', 'fecha_fin')
     def _compute_duracion(self):
@@ -266,9 +261,29 @@ class MuseoActividad(models.Model):
             'name': 'Calendario de Actividades',
             'res_model': 'calendar.event',
             'view_mode': 'calendar',
-            'target': 'current',
+            'target': 'new',
             'domain': [('id', '=', self.calendar_event_id.id)],
             'context': {
+                'default_actividad_id': self.id,
+                'search_default_museo_id': self.museo_id.id,
+                'default_res_model': 'museo.actividad',
+                'default_res_id': self.id
+            }
+        }
+    
+    def action_registrar_asistencia(self):
+        """Acción para registrar asistencia"""
+        self.ensure_one()
+        
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Registro de asistencia',
+            'res_model': 'museo.registro.asistencia',
+            'view_mode': 'form',
+            'target': 'new',
+            'domain': [('id', '=', self.id)],
+            'context': {
+                'default_actividad_id': self.id,
                 'search_default_museo_id': self.museo_id.id,
                 'default_res_model': 'museo.actividad',
                 'default_res_id': self.id

@@ -16,6 +16,7 @@
                 <field name="duracion_horas"/>
                 <field name="museo_id"/>
                 <field name="sala"/>
+                <field name="trabajadores_ids"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -106,10 +107,10 @@
                             <!-- Acciones -->
                             <div class="o_kanban_card_footer">
                                 <div class="btn-group w-100">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" name="action_registrar_asistencia">
+                                    <button type="object" class="btn btn-sm btn-outline-primary" name="action_registrar_asistencia">
                                         <i class="fa fa-check"/>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary" name="open">
+                                    <button type="object" class="btn btn-sm btn-outline-secondary" name="action_abrir_calendario">
                                         <i class="fa fa-eye"/>
                                     </button>
                                 </div>

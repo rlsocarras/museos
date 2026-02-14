@@ -68,7 +68,6 @@
             </form>
         </field>
     </record>
-
     <!-- Lista de Actividades -->
     <record id="view_museo_actividad_list" model="ir.ui.view">
         <field name="name">museo.actividad.list</field>
@@ -87,7 +86,6 @@
             </list>
         </field>
     </record>
-
     <!-- Búsqueda de Actividades -->
     <record id="view_museo_actividad_search" model="ir.ui.view">
         <field name="name">museo.actividad.search</field>
@@ -98,42 +96,40 @@
                 <field name="museo_id"/>
                 <field name="tipo_actividad"/>
                 <field name="estado"/>
-                <separator/>
+                <!-- Filtros de estado -->
                 <filter string="Planificadas" name="planificadas" domain="[('estado', '=', 'planificada')]"/>
                 <filter string="Confirmadas" name="confirmadas" domain="[('estado', '=', 'confirmada')]"/>
                 <filter string="Realizadas" name="realizadas" domain="[('estado', '=', 'realizada')]"/>
-                <!-- <filter string="Esta semana" name="esta_semana" domain="[('fecha_inicio', '&gt;=', date.today()), ('fecha_inicio', '&lt;=', date.today() + 7)]"/>
-                <filter string="Próximo mes" name="proximo_mes" domain="[('fecha_inicio', '&gt;=', date.today()), ('fecha_inicio', '&lt;=', date.today() + 30)]"/> -->
+                <separator/>
+                
+                
+                <!-- Agrupaciones -->
                 <group expand="0" string="Agrupar por">
                     <filter string="Museo" name="grupo_museo" context="{'group_by': 'museo_id'}"/>
                     <filter string="Tipo" name="grupo_tipo" context="{'group_by': 'tipo_actividad'}"/>
                     <filter string="Estado" name="grupo_estado" context="{'group_by': 'estado'}"/>
-                    <!-- <filter string="Mes" name="grupo_mes" context="{'group_by': 'fecha_inicio:month'}"/> -->
+                    <filter string="Mes" name="grupo_mes" context="{'group_by': 'fecha_inicio:month'}"/>
                 </group>
             </search>
         </field>
     </record>
-
-   
-
     <!-- Vista de Calendario -->
     <record id="view_museo_actividad_calendar" model="ir.ui.view">
         <field name="name">museo.actividad.calendar</field>
         <field name="model">museo.actividad</field>
         <field name="arch" type="xml">
             <calendar string="Calendario de Actividades"
-                      date_start="fecha_inicio"
-                      date_stop="fecha_fin"
-                      color="tipo_actividad"
-                      mode="month">
-                <field name="name"/>
-                <field name="tipo_actividad"/>
-                <field name="estado"/>
-                <field name="museo_id"/>
-            </calendar>
+                  date_start="fecha_inicio"  
+                  date_stop="fecha_fin"     
+                  color="tipo_actividad"
+                  mode="month">
+            <field name="name"/>
+            <field name="tipo_actividad"/>
+            <field name="estado"/>
+            <field name="museo_id"/>
+        </calendar>
         </field>
     </record>
-
     <!-- Vista de Gráfico -->
     <record id="view_museo_actividad_graph" model="ir.ui.view">
         <field name="name">museo.actividad.graph</field>
@@ -146,7 +142,6 @@
             </graph>
         </field>
     </record>
-
     <!-- Vista de Pivote -->
     <record id="view_museo_actividad_pivot" model="ir.ui.view">
         <field name="name">museo.actividad.pivot</field>
@@ -160,12 +155,10 @@
             </pivot>
         </field>
     </record>
-
-     <!-- Acción para Actividades -->
+    <!-- Acción para Actividades -->
     <record id="action_museo_actividad" model="ir.actions.act_window">
         <field name="name">Actividades del Museo</field>
         <field name="res_model">museo.actividad</field>
-        <field name="view_mode">kanban,list,calendar,form,graph,pivot</field>
-        
+        <field name="view_mode">kanban,list,form,graph,pivot,calendar</field>
     </record>
 </odoo>

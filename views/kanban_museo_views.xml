@@ -19,7 +19,7 @@
                         <div class="oe_kanban_global_click o_museo_kanban">
                             <!-- Imagen principal del museo -->
                             <div t-if="record.imagen_principal.raw_value" class="o_kanban_image">
-                                <img t-att-src="'/web/image/museo.museo/' + record.id.raw_value + '/imagen_principal/100x100'" 
+                                <img t-att-src="'/web/image/museo.museo/' + record.id.raw_value + '/imagen_principal/200x200'" 
                                      alt="Imagen del museo" 
                                      class="oe_kanban_image img-fluid"/>
                             </div>
@@ -103,7 +103,12 @@
                                     <button type="object" class="btn btn-sm btn-outline-info" name="action_view_convenios">
                                         <i class="fa fa-handshake-o me-1"/> Convenios
                                     </button>
+                                    <button name="action_ver_pagina_web" type="object" class="btn btn-sm btn-outline-success flex-fill"
+                                         title="Visitar sitio web">
+                                        <i class="fa fa-external-link me-1"/> Web
+                                    </button>
                                 </div>
+                                
                             </div>
                         </div>
                     </t>
@@ -111,5 +116,4 @@
             </kanban>
         </field>
     </record>
-    
 </odoo>

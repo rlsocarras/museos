@@ -175,7 +175,7 @@ class MuseoMuseo(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Objetos del Museo',
             'res_model': 'museo.objeto',
-            'view_mode': 'list,form',
+            'view_mode': 'kanban,list,form',
             'domain': [('museo_id', '=', self.id)],
             'context': {'default_museo_id': self.id}
         }
@@ -186,7 +186,7 @@ class MuseoMuseo(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Actividades del Museo',
             'res_model': 'museo.actividad',
-            'view_mode': 'list,calendar,form',
+            'view_mode': 'kanban,list,calendar,form',
             'domain': [('museo_id', '=', self.id)],
             'context': {'default_museo_id': self.id}
         }
@@ -197,7 +197,7 @@ class MuseoMuseo(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Convenios del Museo',
             'res_model': 'museo.convenio',
-            'view_mode': 'list,form',
+            'view_mode': 'kanban,list,form',
             'domain': [('museo_id', '=', self.id)],
             'context': {'default_museo_id': self.id}
         }

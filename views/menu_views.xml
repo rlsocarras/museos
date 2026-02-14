@@ -11,7 +11,7 @@
     <!-- Submenú de Gestión -->
     <menuitem id="menu_museos_gestion" name="Gestión" parent="menu_museos_root" sequence="20"/>
     <!-- Submenú de Actividades -->
-    <menuitem id="menu_museos_actividades_root" name="Actividades" parent="menu_museos_root" sequence="30"/>
+    <!-- <menuitem id="menu_museos_actividades_root" name="Actividades" parent="menu_museos_root" sequence="30"/> -->
     <!-- Submenú de Informes -->
     <!-- <menuitem id="menu_museos_informes_root" name="Informes" parent="menu_museos_root" sequence="40"/> -->
     <!-- Objetos -->
@@ -27,14 +27,14 @@
     <menuitem id="menu_museos_trabajadores" name="Trabajadores" parent="menu_museos_gestion" sequence="50"
               action="action_museo_trabajadores"/>
     <!-- Actividades -->
-    <menuitem id="menu_museos_actividades" name="Actividades" parent="menu_museos_actividades_root" sequence="10"
+    <menuitem id="menu_museos_actividades" name="Actividades" parent="menu_museos_gestion" sequence="60"
               action="action_museo_actividad"/>
     <!-- Calendario -->
-    <menuitem id="menu_museos_calendario" name="Calendario" parent="menu_museos_actividades_root" sequence="20"
-              action="action_museo_actividad"
-              />
+    <!-- <menuitem id="menu_museos_calendario" name="Calendario" parent="menu_museos_actividades_root" sequence="20"
+              action="action_museo_actividad" 
+              />-->
     <!-- Registro de Asistencia -->
-    <menuitem id="menu_museos_asistencia" name="Registro de Asistencia" parent="menu_museos_actividades_root" sequence="30"
+    <menuitem id="menu_museos_asistencia" name="Registro de Asistencia" parent="menu_museos_gestion" sequence="70"
               action="action_museo_registro_asistencia"/>
     <!-- Informes Estadísticos -->
     <!-- <menuitem id="menu_museos_informes" name="Informes Estadísticos" parent="menu_museos_informes_root" sequence="10"

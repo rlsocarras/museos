@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Kanban para Convenios -->
+    <record id="museo_convenio_kanban_view" model="ir.ui.view">
+        <field name="name">museo.convenio.kanban</field>
+        <field name="model">museo.convenio</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="partner_id"/>
+                <field name="estado"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="dias_para_vencer"/>
+                <field name="tipo_convenio"/>
+                <field name="monto"/>
+                <field name="active"/>
+                
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <!-- Cabecera con estado -->
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span t-attf-class="oe_kanban_status oe_kanban_status_#{record.estado.raw_value}">
+                                        <field name="estado" widget="selection_badge"/>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido principal -->
+                            <div class="o_kanban_card_content">
+                                <!-- Información de fechas -->
+                                <div class="row mb-2">
+                                    <div class="col-6">
+                                        <small class="text-muted">Inicio:</small>
+                                        <div>
+                                            <field name="fecha_inicio" widget="date"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Fin:</small>
+                                        <div>
+                                            <field name="fecha_fin" widget="date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Información de vencimiento -->
+                                <t t-if="record.dias_para_vencer.value &lt; 30 and record.dias_para_vencer.value &gt;= 0">
+                                    <div class="alert alert-warning p-1 mb-2">
+                                        <small>
+                                            <i class="fa fa-clock-o mr-1"></i>
+                                            Vence en <field name="dias_para_vencer"/> días
+                                        </small>
+                                    </div>
+                                </t>
+                                <t t-if="record.dias_para_vencer.value &lt; 0">
+                                    <div class="alert alert-danger p-1 mb-2">
+                                        <small>
+                                            <i class="fa fa-exclamation-triangle mr-1"></i>
+                                            Vencido hace <t t-esc="Math.abs(record.dias_para_vencer.value)"/> días
+                                        </small>
+                                    </div>
+                                </t>
+                                
+                                <!-- Entidad asociada -->
+                                <div class="mb-2">
+                                    <small class="text-muted">Entidad:</small>
+                                    <div>
+                                        <field name="partner_id" widget="many2one_avatar"/>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tipo de convenio y monto -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small class="text-muted">Tipo:</small>
+                                        <div>
+                                            <field name="tipo_convenio"/>
+                                        </div>
+                                    </div>
+                                    <t t-if="record.monto.value &gt; 0">
+                                        <div class="col-6">
+                                            <small class="text-muted">Monto:</small>
+                                            <div class="text-success">
+                                                <field name="monto"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                            
+                            <!-- Pie de tarjeta con acciones -->
+                            <div class="o_kanban_card_footer">
+                                <div class="oe_kanban_bottom_left">
+                                    <span t-attf-class="badge badge-#{record.museo_id.raw_value ? 'primary' : 'secondary'}">
+                                        <field name="museo_id" widget="many2one_badge"/>
+                                    </span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                
+                <progressbar field="estado" colors='{"vigente": "success", "vencido": "danger", "borrador": "warning", "cancelado": "secondary", "renovado": "info"}'/>
+            </kanban>
+        </field>
+    </record>
+</odoo>

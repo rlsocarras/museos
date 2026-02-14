@@ -88,7 +88,7 @@
     <record id="action_museo_historia_barrio" model="ir.actions.act_window">
         <field name="name">Historias de Barrios</field>
         <field name="res_model">museo.historia.barrio</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No hay historias de barrios registradas.

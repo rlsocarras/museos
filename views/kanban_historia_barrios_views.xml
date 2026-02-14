@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Kanban para Historias de Barrio -->
+    <record id="museo_historia_barrio_kanban_view" model="ir.ui.view">
+        <field name="name">museo.historia.barrio.kanban</field>
+        <field name="model">museo.historia.barrio</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="museo_id"/>
+                <field name="barrio"/>
+                <field name="ciudad"/>
+                <field name="fecha_registro"/>
+                <field name="fuente"/>
+                <field name="estado_investigacion"/>
+                <field name="investigador_responsable"/>
+                <field name="active"/>
+                <field name="contenido_historico"/>
+                <field name="documentacion"/>
+                
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <!-- Cabecera con título -->
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span t-attf-class="badge badge-#{record.estado_investigacion.raw_value == 'publicada' ? 'success' : record.estado_investigacion.raw_value == 'completada' ? 'info' : record.estado_investigacion.raw_value == 'avanzada' ? 'primary' : 'warning'}">
+                                        <field name="estado_investigacion" widget="selection_badge"/>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido principal -->
+                            <div class="o_kanban_card_content">
+                                <!-- Ubicación -->
+                                <div class="mb-2">
+                                    <small class="text-muted">Ubicación:</small>
+                                    <div>
+                                        <i class="fa fa-map-marker mr-1"></i>
+                                        <field name="barrio"/>
+                                        <t t-if="record.ciudad.value">
+                                            , <field name="ciudad"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                
+                                <!-- Información de investigación -->
+                                <div class="row mb-2">
+                                    <div class="col-6">
+                                        <small class="text-muted">Fuente:</small>
+                                        <div>
+                                            <field name="fuente"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Registro:</small>
+                                        <div>
+                                            <field name="fecha_registro" widget="date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Investigador -->
+                                <t t-if="record.investigador_responsable.value">
+                                    <div class="mb-2">
+                                        <small class="text-muted">Investigador:</small>
+                                        <div>
+                                            <i class="fa fa-user mr-1"></i>
+                                            <field name="investigador_responsable"/>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <!-- Previsualización de contenido -->
+                                <div class="mt-2">
+                                    <small class="text-muted">Resumen:</small>
+                                    <div class="text-muted" style="font-size: 0.9em; max-height: 60px; overflow: hidden; text-overflow: ellipsis;">
+                                        <t t-esc="record.contenido_historico.value ? record.contenido_historico.value.substring(0, 100) + '...' : 'Sin contenido'"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pie de tarjeta -->
+                            <div class="o_kanban_card_footer">
+                                <div class="oe_kanban_bottom_left">
+                                    <span t-attf-class="badge badge-#{record.museo_id.raw_value ? 'primary' : 'secondary'}">
+                                        <field name="museo_id" widget="many2one_badge"/>
+                                    </span>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <t t-if="record.documentacion.value">
+                                        <i class="fa fa-paperclip" title="Tiene documentación adjunta"/>
+                                    </t>
+                                    <button type="button" name="open_menu" class="btn btn-sm btn-link o_kanban_quick_create">
+                                        <i class="fa fa-ellipsis-v"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                
+                <progressbar field="estado_investigacion" colors='{"publicada": "success", "completada": "info", "avanzada": "primary", "inicial": "warning"}'/>
+            </kanban>
+        </field>
+    </record>
+</odoo>

@@ -36,7 +36,7 @@
     </record>
 
     <!-- Filtro para Actividades Próximas -->
-    <record id="filter_actividad_proximas_semana" model="ir.filters">
+    <!-- <record id="filter_actividad_proximas_semana" model="ir.filters">
         <field name="name">Actividades Próximas (7 días)</field>
         <field name="model_id">museo.actividad</field>
         <field name="domain">[('fecha_inicio', '&gt;=', context_today()), ('fecha_inicio', '&lt;=', context_today() + 7)]</field>
@@ -44,7 +44,7 @@
         <field name="is_default" eval="True"/>
         <field name="action_id" ref="action_museo_actividad"/>
         <field name="active" eval="True"/>
-    </record>
+    </record> -->
 
     <!-- Filtro para Convenios Vigentes -->
     <record id="filter_convenio_vigentes" model="ir.filters">
